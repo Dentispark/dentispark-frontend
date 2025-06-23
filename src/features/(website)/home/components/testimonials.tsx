@@ -20,6 +20,7 @@ import {
   CarouselItem,
 } from "@/src/components/ui/carousel";
 import { cn } from "@/src/lib/utils";
+import { Title } from "@/src/components/atoms/title";
 
 type Testimonial = {
   quote: string;
@@ -55,9 +56,7 @@ export function Testimonials() {
       <Container className="flex flex-col items-center space-y-10">
         {/* Label + Heading */}
 
-        <span className="border-primary-700 bg-primary-100 text-primary-700 rounded-full border px-6 py-2 text-base font-medium">
-          Testimonials
-        </span>
+        <Title>Testimonials</Title>
         <h2 className="text-center text-5xl leading-[160%] font-extrabold text-black sm:text-4xl">
           Real Stories. Real Impact.
         </h2>
