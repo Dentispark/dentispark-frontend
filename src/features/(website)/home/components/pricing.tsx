@@ -32,7 +32,7 @@ export function PricingSection() {
     <section className="bg-white py-16">
       <div className="flex flex-col items-center space-y-6 px-4 lg:px-0">
         <Title>Pricing</Title>
-        <h2 className="md: max-w-xl text-center text-3xl leading-[150%] font-bold text-black sm:text-4xl">
+        <h2 className="w-[70%] max-w-xl text-center text-4xl leading-[150%] font-bold text-black md:w-full md:leading-[120%]">
           Unlock more support when you're ready
         </h2>
 
