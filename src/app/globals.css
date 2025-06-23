@@ -62,6 +62,7 @@
   --color-black-500: var(--black-500);
   --color-black-600: var(--black-600);
   --color-black-700: var(--black-700);
+  --color-black-800: var(--black-800);
 
   --color-text-color: var(--text-color);
 
@@ -122,6 +123,8 @@
   --black-500: oklch(0.46 0 89.9);
   --black-600: oklch(0.301 0 89.9);
   --black-700: oklch(0.248 0 89.9);
+  --black-800: oklch(0.248 0.000 89.9);
+
 
   --text-color: oklch(0.301 0 89.9);
 
