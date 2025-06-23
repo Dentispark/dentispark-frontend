@@ -1,4 +1,3 @@
-import { Footer } from "@/src/components/layouts/footer";
 import { AdmissionProbabilityCalculator } from "@/src/features/(website)/home/components/admission-probability-calculator";
 import { FreeTools } from "@/src/features/(website)/home/components/free-tools";
 import { Hero } from "@/src/features/(website)/home/components/hero-section";
@@ -21,7 +20,6 @@ export default function Home() {
       <AdmissionProbabilityCalculator />
       <PricingSection />
       <JoinSection />
-      <Footer />
     </>
   );
 }
