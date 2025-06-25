@@ -32,7 +32,7 @@ const bounceX = createBounceVariants("x");
 
 export function Hero() {
   return (
-    <section className="relative overflow-hidden py-20">
+    <section className="relative -z-20 overflow-hidden py-20">
       <div
         className="pointer-events-none absolute inset-0 flex items-center justify-center"
         aria-hidden="true"
