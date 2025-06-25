@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "gen:icons": "svgr --icon --no-prettier --out-dir src/components/icons public/icons",
-    "dev": "next dev --turbopack",
+    "dev": "next dev",
+    "dev:turbo": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
