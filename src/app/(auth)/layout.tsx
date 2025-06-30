@@ -1,0 +1,77 @@
+"use client";
+
+import { usePathname } from "next/navigation";
+import Link from "next/link";
+import Container from "@/src/components/layouts/container";
+import Logo from "@/src/components/icons/Logo";
+import { Button } from "@/src/components/ui/button";
+
+interface AuthLayoutProps {
+  children: React.ReactNode;
+}
+
+export default function AuthLayout({ children }: AuthLayoutProps) {
+  const pathname = usePathname();
+  const isLoginPage = pathname === "/login";
+  const isSignUpPage = pathname === "/sign-up";
+
+  return (
+    <div className="min-h-screen bg-white">
+      {/* Header */}
+      <header className="border-grey-300 sticky top-0 z-50 hidden border-b bg-white/80 backdrop-blur-md md:block">
+        <Container className="flex items-center justify-between py-4">
+          {/* Logo */}
+          <div>
+            <Link href="/">
+              <Logo className="h-[35px] w-[150px]" />
+            </Link>
+          </div>
+
+          {/* Desktop Navigation - hidden on mobile */}
+          <div className="hidden items-center space-x-4 md:flex">
+            {!isLoginPage && (
+              <div>
+                <Link href="/login">
+                  <Button className="font-sora" variant="outline">
+                    Log In
+                  </Button>
+                </Link>
+              </div>
+            )}
+            {!isSignUpPage && (
+              <div>
+                <Link href="/sign-up">
+                  <Button className="font-sora">Sign Up</Button>
+                </Link>
+              </div>
+            )}
+          </div>
+
+          {/* Mobile - conditionally show button */}
+          <div className="block md:hidden">
+            {!isSignUpPage && (
+              <Link href="/sign-up">
+                <Button className="font-sora h-auto px-5 py-2 text-sm">
+                  Sign Up
+                </Button>
+              </Link>
+            )}
+            {!isLoginPage && isSignUpPage && (
+              <Link href="/login">
+                <Button
+                  className="font-sora h-auto px-5 py-2 text-sm"
+                  variant="outline"
+                >
+                  Log In
+                </Button>
+              </Link>
+            )}
+          </div>
+        </Container>
+      </header>
+
+      {/* Main Content */}
+      <main className="flex-1">{children}</main>
+    </div>
+  );
+}
