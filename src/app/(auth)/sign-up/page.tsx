@@ -286,7 +286,7 @@ export default function SignUpPage() {
                       <FormMessage />
                       <p className="font-sora mt-1 text-xs text-gray-500">
                         8+ characters. At least one number (0-9), e.g.
-                        "Pelican24liver".
+                        &ldquo;Pelican24liver&rdquo;.
                       </p>
                     </FormItem>
                   )}
@@ -324,7 +324,7 @@ export default function SignUpPage() {
                       </FormControl>
                       <FormMessage />
                       <p className="font-sora mt-1 text-xs text-gray-500">
-                        Please don't re-use a password from elsewhere.
+                        Please don&apos;t re-use a password from elsewhere.
                       </p>
                     </FormItem>
                   )}

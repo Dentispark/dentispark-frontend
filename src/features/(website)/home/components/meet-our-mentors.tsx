@@ -20,7 +20,7 @@ import Stanford from "@/src/components/icons/Standford";
 type Mentor = {
   name: string;
   title: string;
-  flag: any;
+  flag: React.ReactElement;
   avatar: StaticImageData;
   institutions: { name: string; role: string; logo: string }[];
   highlight?: string;

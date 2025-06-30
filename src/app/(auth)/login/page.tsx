@@ -260,7 +260,7 @@ export default function LoginPage() {
         {/* Sign Up Link */}
         <motion.div className="text-center" variants={itemVariants}>
           <p className="font-sora text-xs text-gray-600">
-            Don't have an account?{" "}
+            Don&apos;t have an account?{" "}
             <Link
               href="/sign-up"
               className="text-primary font-sora text-xs underline"

@@ -1,5 +1,3 @@
-import { Sora } from "next/font/google";
-
 import type { Metadata } from "next";
 import "./globals.css";
 import { ReactQueryProvider } from "@/src/lib/react-query";

@@ -4,7 +4,7 @@
 import Image, { StaticImageData } from "next/image";
 import Link from "next/link";
 import Container from "@/src/components/layouts/container";
-import { Users, PhoneCall, Headphones, ArrowRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
 import howItWorksImage1 from "@/public/images/how-to-work-img-1.png";
 import howItWorksImage2 from "@/public/images/how-to-work-img-2.png";

@@ -16,7 +16,8 @@ export interface ContactFormResponse {
 
 export const contactUsAPI = {
   submitContact: async (
-    data: ContactFormData,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    _data: ContactFormData,
   ): Promise<ContactFormResponse> => {
     try {
       // TODO: Replace with actual API call when backend is ready

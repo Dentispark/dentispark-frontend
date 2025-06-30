@@ -287,7 +287,7 @@ export default function Header() {
               className="mt-4 flex flex-col gap-8 px-2"
               variants={mobileItemVariants}
             >
-              {navItems.map((item, index) => (
+              {navItems.map((item) => (
                 <motion.div
                   key={item.href}
                   variants={mobileItemVariants}

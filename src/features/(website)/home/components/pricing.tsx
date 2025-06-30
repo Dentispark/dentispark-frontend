@@ -15,7 +15,7 @@ const plans = [
   },
   {
     name: "Premium Plan",
-    priceHtml: "$24<span class='text-sm font-normal'>/month</span>",
+    priceHtml: '$24<span class="text-sm font-normal">/month</span>',
     description: "Need More? Upgrade for 1:1 Mentorship and More",
     features: [
       "Access guides",
@@ -33,7 +33,7 @@ export function PricingSection() {
       <div className="flex flex-col items-center space-y-6 px-4 lg:px-0">
         <Title>Pricing</Title>
         <h2 className="w-[70%] max-w-xl text-center text-4xl leading-[150%] font-bold text-black md:w-full md:leading-[120%]">
-          Unlock more support when you're ready
+          Unlock more support when you&apos;re ready
         </h2>
 
         <div className="grid w-full max-w-3xl grid-cols-1 gap-6 md:grid-cols-2">

@@ -91,7 +91,7 @@ export function Testimonials() {
               <LondonLogo className="mb-8 h-10 w-10" />
 
               <p className="mb-12 w-[70%] text-2xl leading-[160%] font-medium sm:text-2xl md:w-[80%] md:text-lg md:leading-[120%]">
-                Dentispark's free guides helped me ace my UCAT!
+                Dentispark&apos;s free guides helped me ace my UCAT!
               </p>
               <p className="mt-2 text-lg font-medium text-green-300">
                 Aisha Mubarak
@@ -172,7 +172,7 @@ export function Testimonials() {
           </div>
           <div className="flex flex-1 flex-col items-start space-y-12 p-6 text-white sm:text-left">
             <h3 className="w-[70%] text-3xl font-bold md:w-full">
-              How Aisha Got into King's College London.
+              How Aisha Got into King&apos;s College London.
             </h3>
             <Button size="lg" className="font-sora">
               Read story

@@ -112,14 +112,15 @@ export function FAQ() {
             Frequently asked questions
           </h2>
           <p className="font-sora text-sm text-gray-600">
-            Find answers to your questions right here, and don't hesitate to{" "}
+            Find answers to your questions right here, and don&apos;t hesitate
+            to{" "}
             <a
               href="mailto:contact@dentispark.co.uk"
               className="text-primary underline"
             >
               contact us
             </a>{" "}
-            if you couldn't find what you're looking for.
+            if you couldn&apos;t find what you&apos;re looking for.
           </p>
         </div>
 
