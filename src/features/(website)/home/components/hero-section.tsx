@@ -11,8 +11,6 @@ import heroImg1 from "@/public/images/hero-1.png";
 import heroImg2 from "@/public/images/hero-2.png";
 import UniversityPartner from "./university-partner";
 
-const MotionLink = motion(Link);
-
 const createBounceVariants = (axis: "x" | "y"): Variants => ({
   rest: { [axis]: 0 },
   hover: {
@@ -32,9 +30,9 @@ const bounceX = createBounceVariants("x");
 
 export function Hero() {
   return (
-    <section className="relative -z-20 overflow-hidden py-20">
+    <section className="relative overflow-hidden py-20">
       <div
-        className="pointer-events-none absolute inset-0 flex items-center justify-center"
+        className="pointer-events-none absolute inset-0 -z-10 flex items-center justify-center"
         aria-hidden="true"
       >
         <div className="from-primary to-primary h-[1000px] w-[1000px] bg-gradient-to-r opacity-10 mix-blend-plus-darker blur-3xl filter" />
@@ -42,7 +40,7 @@ export function Hero() {
 
       {/* Dotted square pattern */}
       <div
-        className="absolute inset-0 z-0 opacity-60"
+        className="pointer-events-none absolute inset-0 -z-10 opacity-60"
         style={{
           backgroundImage: `
             repeating-linear-gradient(
@@ -80,32 +78,34 @@ export function Hero() {
           underprivileged students.
         </p>
 
-        <div className="flex flex-col gap-6 sm:flex-row">
-          <MotionLink
-            href="/signup"
-            initial="rest"
-            whileHover="hover"
-            animate="rest"
-            className="bg-primary font-sora hover:bg-primary/90 inline-flex items-center justify-center gap-2 rounded-md px-6 py-3 text-sm font-normal text-white shadow transition"
-          >
-            <span>Start for Free</span>
-            <motion.span variants={bounceX} className="flex">
-              <ArrowRight size={20} />
-            </motion.span>
-          </MotionLink>
+        <div className="z-40 flex flex-col gap-6 sm:flex-row">
+          <Link href="/sign-up">
+            <motion.div
+              initial="rest"
+              whileHover="hover"
+              animate="rest"
+              className="bg-primary font-sora hover:bg-primary/90 inline-flex cursor-pointer items-center justify-center gap-2 rounded-md px-6 py-3 text-sm font-normal text-white shadow transition"
+            >
+              <span>Start for Free</span>
+              <motion.span variants={bounceX} className="flex">
+                <ArrowRight size={20} />
+              </motion.span>
+            </motion.div>
+          </Link>
 
-          <MotionLink
-            href="/resources"
-            initial="rest"
-            whileHover="hover"
-            animate="rest"
-            className="border-primary font-sora text-primary inline-flex items-center justify-center gap-2 rounded-md border px-6 py-3 text-sm font-normal transition hover:bg-green-50"
-          >
-            <span>Explore Free Resources</span>
-            <motion.span variants={bounceY} className="flex">
-              <ArrowDown size={20} />
-            </motion.span>
-          </MotionLink>
+          <Link href="/resources">
+            <motion.div
+              initial="rest"
+              whileHover="hover"
+              animate="rest"
+              className="border-primary font-sora text-primary inline-flex cursor-pointer items-center justify-center gap-2 rounded-md border px-6 py-3 text-sm font-normal transition hover:bg-green-50"
+            >
+              <span>Explore Free Resources</span>
+              <motion.span variants={bounceY} className="flex">
+                <ArrowDown size={20} />
+              </motion.span>
+            </motion.div>
+          </Link>
         </div>
 
         {/* Hero images */}

@@ -216,7 +216,7 @@ export default function Header() {
             whileTap={{ scale: 0.98 }}
             transition={{ duration: 0.2 }}
           >
-            <Link href="/signup">
+            <Link href="/sign-up">
               <Button className="font-sora">Sign Up</Button>
             </Link>
           </motion.div>
