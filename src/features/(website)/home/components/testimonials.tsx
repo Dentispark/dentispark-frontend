@@ -166,6 +166,9 @@ export function Testimonials() {
                 alt="Aisha story"
                 width={1000}
                 height={1000}
+                priority
+                quality={85}
+                placeholder="blur"
                 className="object-cover"
               />
             </div>

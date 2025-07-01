@@ -221,6 +221,7 @@ export default function SignUpPage() {
                             type="text"
                             placeholder="Enter your first name"
                             className="pl-10"
+                            aria-invalid={!!form.formState.errors.firstName}
                             {...field}
                           />
                         </div>
@@ -243,6 +244,7 @@ export default function SignUpPage() {
                             type="text"
                             placeholder="Enter your last name"
                             className="pl-10"
+                            aria-invalid={!!form.formState.errors.lastName}
                             {...field}
                           />
                         </div>
@@ -268,6 +270,7 @@ export default function SignUpPage() {
                             type={showPassword ? "text" : "password"}
                             placeholder="Enter your password"
                             className="pr-10 pl-10"
+                            aria-invalid={!!form.formState.errors.password}
                             {...field}
                           />
                           <button
@@ -284,10 +287,6 @@ export default function SignUpPage() {
                         </div>
                       </FormControl>
                       <FormMessage />
-                      <p className="font-sora mt-1 text-xs text-gray-500">
-                        8+ characters. At least one number (0-9), e.g.
-                        &ldquo;Pelican24liver&rdquo;.
-                      </p>
                     </FormItem>
                   )}
                 />
@@ -305,6 +304,9 @@ export default function SignUpPage() {
                             type={showConfirmPassword ? "text" : "password"}
                             placeholder="Re-enter your password"
                             className="pr-10 pl-10"
+                            aria-invalid={
+                              !!form.formState.errors.confirmPassword
+                            }
                             {...field}
                           />
                           <button
@@ -323,9 +325,6 @@ export default function SignUpPage() {
                         </div>
                       </FormControl>
                       <FormMessage />
-                      <p className="font-sora mt-1 text-xs text-gray-500">
-                        Please don&apos;t re-use a password from elsewhere.
-                      </p>
                     </FormItem>
                   )}
                 />
@@ -345,6 +344,7 @@ export default function SignUpPage() {
                           type="email"
                           placeholder="Enter your email address"
                           className="pl-10"
+                          aria-invalid={!!form.formState.errors.email}
                           {...field}
                         />
                       </div>

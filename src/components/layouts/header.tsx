@@ -165,10 +165,8 @@ export default function Header() {
                 <Link
                   href={item.href}
                   className={
-                    "text-black-600 relative text-xs font-medium transition-colors duration-300 hover:text-green-600 " +
-                    (pathname === item.href
-                      ? "text-green-600 after:absolute after:-bottom-1 after:left-0 after:h-0.5 after:w-full after:bg-green-600"
-                      : "")
+                    "text-black-600 hover:text-primary relative text-xs font-medium transition-colors duration-300 " +
+                    (pathname === item.href ? "text-primary" : "")
                   }
                 >
                   <motion.span
@@ -182,7 +180,7 @@ export default function Header() {
                   </motion.span>
                   {pathname === item.href && (
                     <motion.div
-                      className="absolute -bottom-1 left-0 h-0.5 bg-green-600"
+                      className="bg-primary absolute -bottom-1 left-0 h-0.5"
                       layoutId="activeTab"
                       initial={{ width: 0 }}
                       animate={{ width: "100%" }}
@@ -216,7 +214,7 @@ export default function Header() {
             whileTap={{ scale: 0.98 }}
             transition={{ duration: 0.2 }}
           >
-            <Link href="/signup">
+            <Link href="/sign-up">
               <Button className="font-sora">Sign Up</Button>
             </Link>
           </motion.div>
