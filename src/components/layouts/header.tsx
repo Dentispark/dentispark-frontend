@@ -12,10 +12,8 @@ export default function Header() {
   const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isVisible, setIsVisible] = useState(true);
-  const [lastScrollY, setLastScrollY] = useState(0);
   const navItems = [
-    { label: "About Us", href: "/about" },
+    { label: "About Us", href: "/about-us" },
     { label: "Become a mentor", href: "/mentors" },
     { label: "Contact Us", href: "/contact-us" },
   ];
@@ -34,25 +32,13 @@ export default function Header() {
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
-
-      // Check if scrolled
+      // Check if scrolled for border effect
       setIsScrolled(currentScrollY > 0);
-
-      // Determine scroll direction
-      if (currentScrollY > lastScrollY && currentScrollY > 100) {
-        // Scrolling down and past 100px - hide header
-        setIsVisible(false);
-      } else if (currentScrollY < lastScrollY) {
-        // Scrolling up - show header
-        setIsVisible(true);
-      }
-
-      setLastScrollY(currentScrollY);
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [lastScrollY]);
+  }, []);
 
   const headerVariants = {
     hidden: { y: -100, opacity: 0 },
@@ -114,7 +100,7 @@ export default function Header() {
       }`}
       variants={headerVariants}
       initial="hidden"
-      animate={isVisible ? "visible" : "hidden"}
+      animate="visible"
       transition={{
         duration: 0.3,
         ease: "easeInOut",
@@ -227,7 +213,7 @@ export default function Header() {
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
         >
-          <Link href="/signup">
+          <Link href="/sign-up">
             <Button className="font-sora h-auto px-5 py-2 text-sm">
               Sign Up
             </Button>

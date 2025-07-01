@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
+import { motion } from "framer-motion";
 import { ArrowRight, Mail } from "lucide-react";
 
 import { Button } from "@/src/components/ui/button";
@@ -80,12 +81,42 @@ export function ContactUsForm() {
     return value;
   };
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        duration: 0.4,
+        staggerChildren: 0.1,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 15 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.4,
+      },
+    },
+  };
+
   return (
-    <div className="">
+    <motion.div
+      className=""
+      variants={containerVariants}
+      initial="hidden"
+      animate="visible"
+    >
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
           {/* First Name and Last Name */}
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+          <motion.div
+            className="grid grid-cols-1 gap-6 sm:grid-cols-2"
+            variants={itemVariants}
+          >
             <FormField
               control={form.control}
               name="firstName"
@@ -122,10 +153,13 @@ export function ContactUsForm() {
                 </FormItem>
               )}
             />
-          </div>
+          </motion.div>
 
           {/* Email Address and Phone Number */}
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+          <motion.div
+            className="grid grid-cols-1 gap-6 sm:grid-cols-2"
+            variants={itemVariants}
+          >
             <FormField
               control={form.control}
               name="email"
@@ -176,81 +210,87 @@ export function ContactUsForm() {
                 </FormItem>
               )}
             />
-          </div>
+          </motion.div>
 
           {/* Message */}
-          <FormField
-            control={form.control}
-            name="message"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className="font-sora text-xs">Message</FormLabel>
-                <FormControl>
-                  <div className="relative">
-                    <Textarea
-                      placeholder="Enter a message..."
-                      aria-invalid={!!form.formState.errors.message}
-                      {...field}
-                      onChange={(e) => {
-                        const value = handleMessageChange(e.target.value);
-                        field.onChange(value);
-                      }}
-                    />
-                    <div className="font-sora mt-2 text-xs text-gray-500">
-                      Word count: {messageLength}/500
+          <motion.div variants={itemVariants}>
+            <FormField
+              control={form.control}
+              name="message"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="font-sora text-xs">Message</FormLabel>
+                  <FormControl>
+                    <div className="relative">
+                      <Textarea
+                        placeholder="Enter a message..."
+                        aria-invalid={!!form.formState.errors.message}
+                        {...field}
+                        onChange={(e) => {
+                          const value = handleMessageChange(e.target.value);
+                          field.onChange(value);
+                        }}
+                      />
+                      <div className="font-sora mt-2 text-xs text-gray-500">
+                        Word count: {messageLength}/500
+                      </div>
                     </div>
-                  </div>
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </motion.div>
 
           {/* Privacy Policy Checkbox */}
-          <FormField
-            control={form.control}
-            name="agreeToPrivacy"
-            render={({ field }) => (
-              <FormItem className="flex flex-row items-start space-y-0 space-x-1">
-                <FormControl>
-                  <Checkbox
-                    checked={field.value}
-                    onCheckedChange={field.onChange}
-                  />
-                </FormControl>
-                <div className="space-y-1 leading-none">
-                  <p className="font-sora text-xs font-normal">
-                    <span>By submitting this form, I agree to the</span>{" "}
-                    <span
-                      // href=""
-                      className="text-primary underline"
-                    >
-                      privacy policy.
-                    </span>
-                  </p>
-                  <FormMessage />
-                </div>
-              </FormItem>
-            )}
-          />
+          <motion.div variants={itemVariants}>
+            <FormField
+              control={form.control}
+              name="agreeToPrivacy"
+              render={({ field }) => (
+                <FormItem className="flex flex-row items-start space-y-0 space-x-1">
+                  <FormControl>
+                    <Checkbox
+                      checked={field.value}
+                      onCheckedChange={field.onChange}
+                    />
+                  </FormControl>
+                  <div className="space-y-1 leading-none">
+                    <p className="font-sora text-xs font-normal">
+                      <span>By submitting this form, I agree to the</span>{" "}
+                      <span
+                        // href=""
+                        className="text-primary underline"
+                      >
+                        privacy policy.
+                      </span>
+                    </p>
+                    <FormMessage />
+                  </div>
+                </FormItem>
+              )}
+            />
+          </motion.div>
 
           {/* Submit Button */}
-          <Button
-            type="submit"
-            disabled={isSubmitting}
-            className="bg-primary hover:bg-primary/90 w-full py-5 text-white"
-          >
-            {isSubmitting ? (
-              "Submitting..."
-            ) : (
-              <>
-                Submit Form
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </>
-            )}
-          </Button>
+          <motion.div variants={itemVariants}>
+            <Button
+              type="submit"
+              disabled={isSubmitting}
+              className="bg-primary hover:bg-primary/90 w-full py-5 text-white"
+            >
+              {isSubmitting ? (
+                "Submitting..."
+              ) : (
+                <>
+                  Submit Form
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </>
+              )}
+            </Button>
+          </motion.div>
         </form>
       </Form>
-    </div>
+    </motion.div>
   );
 }

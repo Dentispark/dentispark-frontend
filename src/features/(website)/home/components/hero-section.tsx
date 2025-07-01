@@ -84,7 +84,7 @@ export function Hero() {
               initial="rest"
               whileHover="hover"
               animate="rest"
-              className="bg-primary font-sora hover:bg-primary/90 inline-flex cursor-pointer items-center justify-center gap-2 rounded-md px-6 py-3 text-sm font-normal text-white shadow transition"
+              className="bg-primary font-sora hover:bg-primary/90 inline-flex w-full cursor-pointer items-center justify-center gap-2 rounded-md px-6 py-3 text-sm font-normal text-white shadow transition"
             >
               <span>Start for Free</span>
               <motion.span variants={bounceX} className="flex">

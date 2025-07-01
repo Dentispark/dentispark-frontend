@@ -1,3 +1,4 @@
+export { default as AboutTop } from './AboutTop'
 export { default as BigRadiusBg } from './BigRadiusBg'
 export { default as FooterPattern } from './FooterPattern'
 export { default as HowItWorksIcon1 } from './HowItWorksIcon1'
