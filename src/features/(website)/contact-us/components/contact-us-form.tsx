@@ -95,7 +95,11 @@ export function ContactUsForm() {
                     First Name
                   </FormLabel>
                   <FormControl>
-                    <Input placeholder="Enter your first name" {...field} />
+                    <Input
+                      placeholder="Enter your first name"
+                      aria-invalid={!!form.formState.errors.firstName}
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -108,7 +112,11 @@ export function ContactUsForm() {
                 <FormItem>
                   <FormLabel className="font-sora text-xs">Last Name</FormLabel>
                   <FormControl>
-                    <Input placeholder="Enter your last name" {...field} />
+                    <Input
+                      placeholder="Enter your last name"
+                      aria-invalid={!!form.formState.errors.lastName}
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -133,6 +141,7 @@ export function ContactUsForm() {
                         type="email"
                         placeholder="Enter your email address"
                         className="pl-10"
+                        aria-invalid={!!form.formState.errors.email}
                         {...field}
                       />
                     </div>
@@ -158,6 +167,7 @@ export function ContactUsForm() {
                         type="tel"
                         placeholder="Enter your phone number"
                         className="rounded-l-none border-l-0 focus-visible:ring-2"
+                        aria-invalid={!!form.formState.errors.phone}
                         {...field}
                       />
                     </div>
@@ -179,6 +189,7 @@ export function ContactUsForm() {
                   <div className="relative">
                     <Textarea
                       placeholder="Enter a message..."
+                      aria-invalid={!!form.formState.errors.message}
                       {...field}
                       onChange={(e) => {
                         const value = handleMessageChange(e.target.value);

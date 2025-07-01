@@ -194,6 +194,7 @@ export default function LoginPage() {
                             type="email"
                             placeholder="Enter your email address"
                             className="pl-10"
+                            aria-invalid={!!form.formState.errors.email}
                             {...field}
                           />
                         </div>
@@ -216,6 +217,7 @@ export default function LoginPage() {
                             type={showPassword ? "text" : "password"}
                             placeholder="Enter your password"
                             className="pr-10 pl-10"
+                            aria-invalid={!!form.formState.errors.password}
                             {...field}
                           />
                           <button
