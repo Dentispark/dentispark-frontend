@@ -1,0 +1,3 @@
+import * as React from "react";
+const SvgAboutTop = props => <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="none" viewBox="0 0 179 180" {...props}><path fill="#B6E5D4" d="M176.849 104.189a1.966 1.966 0 0 1 1.629 2.293 90.005 90.005 0 0 1-85.382 73.465 90.001 90.001 0 1 1 20.052-176.92 90 90 0 0 1 48.734 32.817c.665.882.459 2.133-.438 2.778L138.58 55.064c-.896.645-2.143.438-2.819-.435a57.839 57.839 0 1 0 10.963 46.665c.216-1.083 1.241-1.824 2.331-1.646z" /></svg>;
+export default SvgAboutTop;
