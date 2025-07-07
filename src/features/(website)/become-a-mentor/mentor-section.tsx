@@ -90,7 +90,7 @@ export function MentorSection() {
                 {/* Quote */}
                 <div className="mb-10">
                   <p className="text-sm leading-relaxed opacity-90">
-                    "{mentor.quote}"
+                    &ldquo;{mentor.quote}&rdquo;
                   </p>
                 </div>
 

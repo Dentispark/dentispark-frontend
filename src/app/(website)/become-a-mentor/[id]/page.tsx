@@ -10,9 +10,57 @@ interface MentorPageProps {
   };
 }
 
+// Define proper types for mentor data
+interface MentorData {
+  id: string;
+  name: string;
+  profession: string;
+  rating: number;
+  reviewCount: number;
+  profileImage: string;
+  countryFlag: string;
+  education: {
+    institution: string;
+    program: string;
+  };
+  workExperience: {
+    company: string;
+    role: string;
+  };
+  about: string;
+  workExperienceDetails: Array<{
+    company: string;
+    role: string;
+    duration: string;
+    description: string;
+  }>;
+  educationDetails: Array<{
+    institution: string;
+    program: string;
+    duration: string;
+    description: string;
+  }>;
+  ratings: {
+    average: number;
+    total: number;
+    reviews: Array<{
+      id: string;
+      rating: number;
+      comment: string;
+      date: string;
+      studentName: string;
+    }>;
+  };
+  availability: {
+    nextAvailable: string;
+    responseTime: string;
+    status: "available" | "busy" | "offline";
+  };
+}
+
 // Mock mentor data - in a real app, this would come from an API or database
-const getMentorData = (id: string) => {
-  const mentors: Record<string, any> = {
+const getMentorData = (id: string): MentorData | null => {
+  const mentors: Record<string, MentorData> = {
     "1": {
       id: "1",
       name: "Andy J. Pierce",

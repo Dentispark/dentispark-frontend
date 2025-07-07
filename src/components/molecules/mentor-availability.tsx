@@ -28,10 +28,10 @@ export function MentorAvailability({
         <div className="flex max-w-sm items-center justify-between rounded-2xl border border-gray-200 bg-white p-3">
           <div>
             <p className="font-sora text-sm font-semibold text-gray-900">
-              Available tomorrow at 19:30 GMT+1
+              {mentor.availability.nextAvailable}
             </p>
             <p className="font-sora mt-1 text-xs text-gray-600">
-              Usually responds within 17 hours
+              Usually responds within {mentor.availability.responseTime}
             </p>
           </div>
           <div className="relative">
@@ -80,7 +80,7 @@ export function MentorAvailability({
                 Start chatting with this coach before you get started.
               </p>
               <button className="text-primary-300 hover:text-primary-400 font-sora text-sm font-light underline">
-                Send Andy a message
+                Send {mentor.name.split(" ")[0]} a message
               </button>
             </div>
           </div>
