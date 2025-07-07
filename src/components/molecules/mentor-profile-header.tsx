@@ -67,7 +67,7 @@ export function MentorProfileHeader({ className }: MentorProfileHeaderProps) {
             <h1 className="text-black-600 text-xl font-medium md:text-left">
               {mentor.name}
             </h1>
-            <UkFlag className="size-5 rounded-full" />
+            <UkFlag className="size-5" />
             <button className="ml-6 flex size-8 items-center justify-center self-start rounded-md border md:hidden">
               <Link />
             </button>
@@ -97,12 +97,14 @@ export function MentorProfileHeader({ className }: MentorProfileHeaderProps) {
 
       <div className="mt-4 flex flex-col items-center gap-4 md:flex-row">
         <span className="bg-whites-500 font-sora flex items-center justify-center gap-3 rounded-full px-5 py-3">
+          <NewcastleUni className="size-4" />
           <p className="text-[10px]">
             Studied in American Public University System
           </p>
         </span>
 
         <span className="bg-whites-500 font-sora flex items-center justify-center gap-3 rounded-full px-5 py-3 text-[10px]">
+          <NewcastleUni className="size-4" />
           <p>Worked at Stanford University</p>
         </span>
       </div>
