@@ -5,9 +5,9 @@ import { MentorProfileTabs } from "@/src/components/molecules/mentor-profile-tab
 import { MentorAvailability } from "@/src/components/molecules/mentor-availability";
 
 interface MentorPageProps {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 }
 
 // Define proper types for mentor data
@@ -210,8 +210,8 @@ My approach focuses on practical guidance combined with emotional support throug
   return mentors[id] || null;
 };
 
-export default function MentorPage({ params }: MentorPageProps) {
-  const { id } = params;
+export default async function MentorPage({ params }: MentorPageProps) {
+  const { id } = await params;
   const mentor = getMentorData(id);
 
   if (!mentor) {
