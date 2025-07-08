@@ -6,11 +6,12 @@ import { Title } from "@/src/components/atoms/title";
 
 import aboutHeroImage from "@/public/images/about-hero-img.png";
 import AboutTop from "@/src/components/icons/AboutTop";
+import Container from "@/src/components/layouts/container";
 
 export function HeroSection() {
   return (
     <section className="relative overflow-hidden bg-white py-16">
-      <div className="relative z-10 mx-auto max-w-6xl px-4 sm:px-6 2xl:px-0">
+      <Container className="relative z-10">
         <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
           {/* Content Section */}
           <div className="space-y-6">
@@ -54,27 +55,27 @@ export function HeroSection() {
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.3 }}
-            className="relative"
+            className="relative flex items-center justify-end"
           >
-            <div className="overflow-hidden rounded-3xl">
+            <div className="size-[400px] overflow-hidden rounded-3xl">
               <Image
                 src={aboutHeroImage}
                 alt="Dental students and professionals working together"
                 className="h-full w-full object-cover"
-                width={600}
-                height={500}
+                width={1000}
+                height={1000}
                 quality={85}
                 priority
                 placeholder="blur"
               />
             </div>
 
-            <AboutTop className="absolute -top-7 -left-12 size-36" />
+            <AboutTop className="absolute -top-12 left-0 size-36 md:-top-7 md:left-20" />
 
-            <div className="bg-primary-100 absolute -top-16 -left-28 -z-10 size-[500px] rounded-full opacity-30" />
+            <div className="bg-primary-100 absolute -top-16 -left-0 -z-10 hidden size-[500px] rounded-full md:block" />
           </motion.div>
         </div>
-      </div>
+      </Container>
     </section>
   );
 }

@@ -9,7 +9,7 @@ import WhiteLogo from "@/src/components/icons/WhiteLogo";
 export function Footer() {
   return (
     <footer className="bg-black-800 py-16 text-gray-300">
-      <Container className="font-sora grid grid-cols-1 gap-8 md:grid-cols-4 lg:grid-cols-5 lg:px-16">
+      <Container className="font-sora grid grid-cols-1 gap-8 md:grid-cols-4 lg:grid-cols-5">
         {/* Logo & contact */}
         <div className="flex flex-col space-y-6">
           <WhiteLogo className="h-8 w-36" />

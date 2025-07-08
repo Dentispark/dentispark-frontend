@@ -2,11 +2,12 @@
 
 import { motion } from "framer-motion";
 import AimBackground from "@/src/components/icons/AimBackground";
+import Container from "@/src/components/layouts/container";
 
 export function AimSection() {
   return (
     <section className="relative bg-white pb-16">
-      <div className="relative z-10 mx-auto max-w-5xl px-4 sm:px-6 2xl:px-0">
+      <Container className="relative z-10">
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
           {/* Mission Card */}
           <motion.div
@@ -122,7 +123,7 @@ export function AimSection() {
             </div>
           </motion.div>
         </div>
-      </div>
+      </Container>
     </section>
   );
 }
