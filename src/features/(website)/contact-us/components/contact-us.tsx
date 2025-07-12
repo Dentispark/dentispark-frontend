@@ -49,7 +49,7 @@ export function ContactUs() {
               or just reach out manually at{" "}
               <a
                 href="mailto:contact@dentispark.co.uk"
-                className="text-primary underline"
+                className="text-primary cursor-pointer underline"
               >
                 contact@dentispark.co.uk
               </a>
