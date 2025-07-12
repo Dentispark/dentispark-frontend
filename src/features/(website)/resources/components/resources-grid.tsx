@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
+import Link from "next/link";
 import Container from "@/src/components/layouts/container";
 
 // Import resource images
@@ -62,7 +63,7 @@ const cardVariants = {
 
 export function ResourcesGrid() {
   return (
-    <section className="bg-white pb-16">
+    <section className="bg-white pb-8">
       <Container>
         <motion.div
           variants={containerVariants}
@@ -72,39 +73,44 @@ export function ResourcesGrid() {
           className="grid w-full max-w-6xl grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3"
         >
           {resources.map((resource) => (
-            <motion.div
+            <Link
               key={resource.id}
-              variants={cardVariants}
-              whileHover={{
-                y: -5,
-                transition: { duration: 0.2 },
-              }}
-              className="group flex cursor-pointer flex-col overflow-hidden bg-white"
+              href={`/resources/${resource.id}`}
+              className="cursor-pointer"
             >
-              <div className="mb-2 overflow-hidden rounded-lg">
-                <Image
-                  src={resource.image}
-                  alt={resource.imageAlt}
-                  width={1000}
-                  height={1000}
-                  className="w-full object-cover transition-transform duration-300 ease-out group-hover:scale-105"
-                  quality={85}
-                  placeholder="blur"
-                  priority
-                />
-              </div>
-              <div className="flex flex-col py-6">
-                <p className="text-black-400 font-sora mb-2 text-sm">
-                  {resource.date}
-                </p>
-                <h3 className="text-black-700 mb-3 line-clamp-2 text-lg font-semibold">
-                  {resource.title}
-                </h3>
-                <p className="text-text-color font-sora flex-1 text-xs leading-[160%]">
-                  {resource.description}
-                </p>
-              </div>
-            </motion.div>
+              <motion.div
+                variants={cardVariants}
+                whileHover={{
+                  y: -5,
+                  transition: { duration: 0.2 },
+                }}
+                className="group flex flex-col overflow-hidden bg-white"
+              >
+                <div className="mb-2 overflow-hidden rounded-lg">
+                  <Image
+                    src={resource.image}
+                    alt={resource.imageAlt}
+                    width={1000}
+                    height={1000}
+                    className="w-full object-cover transition-transform duration-300 ease-out group-hover:scale-105"
+                    quality={85}
+                    placeholder="blur"
+                    priority
+                  />
+                </div>
+                <div className="flex flex-col py-6">
+                  <p className="text-black-400 font-sora mb-2 text-sm">
+                    {resource.date}
+                  </p>
+                  <h3 className="text-black-700 mb-3 line-clamp-2 text-lg font-semibold">
+                    {resource.title}
+                  </h3>
+                  <p className="text-text-color font-sora flex-1 text-xs leading-[160%]">
+                    {resource.description}
+                  </p>
+                </div>
+              </motion.div>
+            </Link>
           ))}
         </motion.div>
       </Container>
