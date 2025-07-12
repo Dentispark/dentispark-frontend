@@ -1,6 +1,7 @@
 import {
   HeroSection,
   ResourcesGrid,
+  ResourcesGridSecondary,
 } from "@/src/features/(website)/resources/components";
 
 export default function ResourcesPage() {
@@ -8,6 +9,7 @@ export default function ResourcesPage() {
     <>
       <HeroSection />
       <ResourcesGrid />
+      <ResourcesGridSecondary />
     </>
   );
 }
