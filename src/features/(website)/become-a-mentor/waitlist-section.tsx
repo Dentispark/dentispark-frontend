@@ -75,7 +75,7 @@ export function WaitlistSection() {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.2 }}
             >
-              <Link href="/become-a-mentor/apply">
+              <Link href="/become-a-mentor/apply" className="cursor-pointer">
                 <Button
                   size="lg"
                   className="bg-primary hover:bg-primary-700 font-sora rounded-md px-6 py-6 text-base font-light text-white"

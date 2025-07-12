@@ -95,7 +95,7 @@ export default function Header() {
 
   return (
     <motion.header
-      className={`border-greys-300 sticky top-0 z-50 bg-white/80 backdrop-blur-md transition-all duration-300 ${
+      className={`border-greys-300 sticky top-0 z-50 bg-white/70 backdrop-blur-md transition-all duration-300 ${
         isScrolled ? "border-b" : ""
       }`}
       variants={headerVariants}
@@ -113,7 +113,7 @@ export default function Header() {
         >
           {/* Hamburger for mobile */}
           <motion.button
-            className="block p-2 md:hidden"
+            className="block cursor-pointer p-2 md:hidden"
             aria-label="Open menu"
             onClick={() => setMobileMenuOpen(true)}
             whileHover={{ scale: 1.05 }}
@@ -131,7 +131,7 @@ export default function Header() {
             whileHover={{ scale: 1.02 }}
             transition={{ duration: 0.2 }}
           >
-            <Link href="/">
+            <Link href="/" className="cursor-pointer">
               <Logo className="h-[35px] w-[150px]" />
             </Link>
           </motion.div>
@@ -151,7 +151,7 @@ export default function Header() {
                 <Link
                   href={item.href}
                   className={
-                    "text-black-600 hover:text-primary relative text-xs font-medium transition-colors duration-300 " +
+                    "text-black-600 hover:text-primary relative cursor-pointer text-xs font-medium transition-colors duration-300 " +
                     (pathname === item.href ? "text-primary" : "")
                   }
                 >
@@ -280,7 +280,7 @@ export default function Header() {
                 >
                   <Link
                     href={item.href}
-                    className="text-black-600 text-base font-medium transition-colors duration-300 hover:text-green-600"
+                    className="text-black-600 cursor-pointer text-base font-medium transition-colors duration-300 hover:text-green-600"
                     onClick={() => setMobileMenuOpen(false)}
                   >
                     {item.label}

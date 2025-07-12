@@ -14,16 +14,16 @@ export function Footer() {
         <div className="flex flex-col space-y-6">
           <WhiteLogo className="h-8 w-36" />
           <div className="flex space-x-6">
-            <Link href="#" aria-label="Twitter">
+            <Link href="#" aria-label="Twitter" className="cursor-pointer">
               <Twitter className="h-6 w-6 transition hover:text-white" />
             </Link>
-            <Link href="#" aria-label="Instagram">
+            <Link href="#" aria-label="Instagram" className="cursor-pointer">
               <Instagram className="h-6 w-6 transition hover:text-white" />
             </Link>
-            <Link href="#" aria-label="Facebook">
+            <Link href="#" aria-label="Facebook" className="cursor-pointer">
               <Facebook className="h-6 w-6 transition hover:text-white" />
             </Link>
-            <Link href="#" aria-label="LinkedIn">
+            <Link href="#" aria-label="LinkedIn" className="cursor-pointer">
               <Linkedin className="h-6 w-6 transition hover:text-white" />
             </Link>
           </div>
@@ -51,14 +51,17 @@ export function Footer() {
           <h4 className="text-primary mb-5 font-normal">Welcome</h4>
           <ul className="space-y-3 text-sm">
             <li>
-              <Link href="/free-tools" className="transition hover:text-white">
+              <Link
+                href="/free-tools"
+                className="cursor-pointer transition hover:text-white"
+              >
                 Free Tools
               </Link>
             </li>
             <li>
               <Link
                 href="/admission-timeline"
-                className="transition hover:text-white"
+                className="cursor-pointer transition hover:text-white"
               >
                 Admission Timeline
               </Link>
@@ -66,7 +69,7 @@ export function Footer() {
             <li>
               <Link
                 href="/success-stories"
-                className="transition hover:text-white"
+                className="cursor-pointer transition hover:text-white"
               >
                 Success Stories
               </Link>
@@ -78,17 +81,26 @@ export function Footer() {
           <h4 className="text-primary mb-5 font-normal">Company</h4>
           <ul className="space-y-3 text-xs">
             <li>
-              <Link href="/about" className="transition hover:text-white">
+              <Link
+                href="/about"
+                className="cursor-pointer transition hover:text-white"
+              >
                 About Us
               </Link>
             </li>
             <li>
-              <Link href="/contact" className="transition hover:text-white">
+              <Link
+                href="/contact"
+                className="cursor-pointer transition hover:text-white"
+              >
                 Contact Us
               </Link>
             </li>
             <li>
-              <Link href="/faqs" className="transition hover:text-white">
+              <Link
+                href="/faqs"
+                className="cursor-pointer transition hover:text-white"
+              >
                 FAQs
               </Link>
             </li>
@@ -101,7 +113,7 @@ export function Footer() {
             <li>
               <Link
                 href="/become-mentor"
-                className="transition hover:text-white"
+                className="cursor-pointer transition hover:text-white"
               >
                 Become a Mentor
               </Link>
@@ -109,13 +121,16 @@ export function Footer() {
             <li>
               <Link
                 href="/university-rep"
-                className="transition hover:text-white"
+                className="cursor-pointer transition hover:text-white"
               >
                 University Representative
               </Link>
             </li>
             <li>
-              <Link href="/pricing" className="transition hover:text-white">
+              <Link
+                href="/pricing"
+                className="cursor-pointer transition hover:text-white"
+              >
                 Pricing
               </Link>
             </li>
@@ -126,12 +141,18 @@ export function Footer() {
           <h4 className="text-primary mb-4 font-normal">Legal</h4>
           <ul className="space-y-3 text-xs">
             <li>
-              <Link href="/terms" className="transition hover:text-white">
+              <Link
+                href="/terms"
+                className="cursor-pointer transition hover:text-white"
+              >
                 Terms of Service
               </Link>
             </li>
             <li>
-              <Link href="/privacy" className="transition hover:text-white">
+              <Link
+                href="/privacy"
+                className="cursor-pointer transition hover:text-white"
+              >
                 Privacy Policy
               </Link>
             </li>

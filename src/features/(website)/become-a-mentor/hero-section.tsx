@@ -61,7 +61,7 @@ export function HeroSection() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
             >
-              <Link href="/become-a-mentor/apply">
+              <Link href="/become-a-mentor/apply" className="cursor-pointer">
                 <motion.div
                   initial="rest"
                   whileHover="hover"

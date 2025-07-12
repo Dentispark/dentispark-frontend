@@ -22,7 +22,7 @@ export default function AuthLayout({ children }: AuthLayoutProps) {
         <Container className="flex items-center justify-between py-4">
           {/* Logo */}
           <div>
-            <Link href="/">
+            <Link href="/" className="cursor-pointer">
               <Logo className="h-[35px] w-[150px]" />
             </Link>
           </div>
