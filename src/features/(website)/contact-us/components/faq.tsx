@@ -20,7 +20,7 @@ const FAQItem = forwardRef<HTMLDivElement, FAQItemProps>(
       >
         <button
           onClick={onToggle}
-          className="flex w-full items-center justify-between py-6 text-left transition-colors hover:bg-gray-50"
+          className="flex w-full cursor-pointer items-center justify-between py-6 text-left transition-colors hover:bg-gray-50"
         >
           <h3 className="font-sora pr-4 text-lg font-medium text-gray-900">
             {question}
@@ -116,7 +116,7 @@ export function FAQ() {
             to{" "}
             <a
               href="mailto:contact@dentispark.co.uk"
-              className="text-primary underline"
+              className="text-primary cursor-pointer underline"
             >
               contact us
             </a>{" "}
