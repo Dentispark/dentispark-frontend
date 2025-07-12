@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import {
@@ -24,15 +24,18 @@ export function ResourceDetail({ resource }: ResourceDetailProps) {
   const [isTocCollapsed, setIsTocCollapsed] = useState(false);
   const [activeSection, setActiveSection] = useState<string>("section-0");
 
-  const tableOfContents = [
-    "Lorem Ipsum dolor sit amet consectetur.",
-    "Lorem Ipsum dolor sit amet consectetur.",
-    "Lorem Ipsum dolor sit amet consectetur.",
-    "Lorem Ipsum dolor sit amet consectetur.",
-    "Lorem Ipsum dolor sit amet consectetur.",
-    "Lorem Ipsum dolor sit amet consectetur.",
-    "Lorem Ipsum dolor sit amet consectetur.",
-  ];
+  const tableOfContents = useMemo(
+    () => [
+      "Lorem Ipsum dolor sit amet consectetur.",
+      "Lorem Ipsum dolor sit amet consectetur.",
+      "Lorem Ipsum dolor sit amet consectetur.",
+      "Lorem Ipsum dolor sit amet consectetur.",
+      "Lorem Ipsum dolor sit amet consectetur.",
+      "Lorem Ipsum dolor sit amet consectetur.",
+      "Lorem Ipsum dolor sit amet consectetur.",
+    ],
+    [],
+  );
 
   // Smooth scroll to section
   const scrollToSection = (sectionId: string) => {
@@ -64,7 +67,7 @@ export function ResourceDetail({ resource }: ResourceDetailProps) {
     handleScroll(); // Check initial position
 
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [tableOfContents]);
 
   return (
     <main className="min-h-screen bg-white py-16">
@@ -231,25 +234,26 @@ export function ResourceDetail({ resource }: ResourceDetailProps) {
                     Introduction: Careers in Medicine
                   </h2>
                   <p className="font-sora text-sm leading-relaxed text-black">
-                    So, you're interested in pursuing a medical degree! That's
-                    an exciting journey ahead of you. Whether you're drawn to
-                    the fast-paced environment of emergency medicine, where
-                    every second counts and quick decision-making is crucial,
-                    the intricacies of surgical procedures that require
-                    precision and skill, the continuous care provided in family
-                    practice that builds long-term relationships with patients,
-                    or perhaps the fascinating world of research that drives
-                    medical advancements, the medical field encompasses a
-                    diverse spectrum of roles. Each specialty offers unique
-                    challenges and rewards, aligning with many different
-                    passions and skill sets. You might find yourself captivated
-                    by pediatrics, where you can make a difference in the lives
-                    of children, or by psychiatry, where understanding the human
-                    mind can lead to profound changes in people's lives.
-                    Whatever your interests may be, rest assured that there is a
-                    fulfilling career in medicine waiting for you, one that not
-                    only allows you to grow professionally but also enables you
-                    to contribute meaningfully to society.
+                    So, you&apos;re interested in pursuing a medical degree!
+                    That&apos;s an exciting journey ahead of you. Whether
+                    you&apos;re drawn to the fast-paced environment of emergency
+                    medicine, where every second counts and quick
+                    decision-making is crucial, the intricacies of surgical
+                    procedures that require precision and skill, the continuous
+                    care provided in family practice that builds long-term
+                    relationships with patients, or perhaps the fascinating
+                    world of research that drives medical advancements, the
+                    medical field encompasses a diverse spectrum of roles. Each
+                    specialty offers unique challenges and rewards, aligning
+                    with many different passions and skill sets. You might find
+                    yourself captivated by pediatrics, where you can make a
+                    difference in the lives of children, or by psychiatry, where
+                    understanding the human mind can lead to profound changes in
+                    people&apos;s lives. Whatever your interests may be, rest
+                    assured that there is a fulfilling career in medicine
+                    waiting for you, one that not only allows you to grow
+                    professionally but also enables you to contribute
+                    meaningfully to society.
                   </p>
                 </div>
 
@@ -279,25 +283,26 @@ export function ResourceDetail({ resource }: ResourceDetailProps) {
                     Lorem Ipsum dolor sit amet consectetur.
                   </h2>
                   <p className="font-sora text-sm leading-relaxed text-black">
-                    So, you're interested in pursuing a medical degree! That's
-                    an exciting journey ahead of you. Whether you're drawn to
-                    the fast-paced environment of emergency medicine, where
-                    every second counts and quick decision-making is crucial,
-                    the intricacies of surgical procedures that require
-                    precision and skill, the continuous care provided in family
-                    practice that builds long-term relationships with patients,
-                    or perhaps the fascinating world of research that drives
-                    medical advancements, the medical field encompasses a
-                    diverse spectrum of roles. Each specialty offers unique
-                    challenges and rewards, aligning with many different
-                    passions and skill sets. You might find yourself captivated
-                    by pediatrics, where you can make a difference in the lives
-                    of children, or by psychiatry, where understanding the human
-                    mind can lead to profound changes in people's lives.
-                    Whatever your interests may be, rest assured that there is a
-                    fulfilling career in medicine waiting for you, one that not
-                    only allows you to grow professionally but also enables you
-                    to contribute meaningfully to society.
+                    So, you&apos;re interested in pursuing a medical degree!
+                    That&apos;s an exciting journey ahead of you. Whether
+                    you&apos;re drawn to the fast-paced environment of emergency
+                    medicine, where every second counts and quick
+                    decision-making is crucial, the intricacies of surgical
+                    procedures that require precision and skill, the continuous
+                    care provided in family practice that builds long-term
+                    relationships with patients, or perhaps the fascinating
+                    world of research that drives medical advancements, the
+                    medical field encompasses a diverse spectrum of roles. Each
+                    specialty offers unique challenges and rewards, aligning
+                    with many different passions and skill sets. You might find
+                    yourself captivated by pediatrics, where you can make a
+                    difference in the lives of children, or by psychiatry, where
+                    understanding the human mind can lead to profound changes in
+                    people&apos;s lives. Whatever your interests may be, rest
+                    assured that there is a fulfilling career in medicine
+                    waiting for you, one that not only allows you to grow
+                    professionally but also enables you to contribute
+                    meaningfully to society.
                   </p>
                 </div>
               </div>
