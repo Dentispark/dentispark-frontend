@@ -17,7 +17,7 @@ export function JoinSection() {
           Join <span className="text-primary-300">5,000+</span> students who
           started their journey this month
         </h2>
-        <Link href="/sign-up">
+        <Link href="/sign-up" className="cursor-pointer">
           <Button size="lg" className="px-8 py-5">
             Start for Free
           </Button>
