@@ -79,7 +79,7 @@ export function Hero() {
         </p>
 
         <div className="z-40 flex flex-col gap-6 sm:flex-row">
-          <Link href="/sign-up">
+          <Link href="/sign-up" className="cursor-pointer">
             <motion.div
               initial="rest"
               whileHover="hover"
@@ -93,7 +93,7 @@ export function Hero() {
             </motion.div>
           </Link>
 
-          <Link href="/resources">
+          <Link href="/resources" className="cursor-pointer">
             <motion.div
               initial="rest"
               whileHover="hover"

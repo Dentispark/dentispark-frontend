@@ -17,14 +17,14 @@ export function FreeTools() {
         </p>
         <div className="mt-4 flex flex-col gap-4 sm:flex-row">
           <Link
-            href="/ucat-prep-guide"
-            className="bg-primary font-sora hover:bg-primary-700 inline-flex items-center justify-center rounded-md px-6 py-3 font-normal text-white shadow transition"
+            href="/resources"
+            className="bg-primary font-sora hover:bg-primary-700 inline-flex cursor-pointer items-center justify-center rounded-md px-6 py-3 font-normal text-white shadow transition"
           >
             UCAT Prep Guide
           </Link>
           <Link
             href="/personal-statement-template"
-            className="border-primary font-sora text-primary hover:bg-primary-100 inline-flex items-center justify-center rounded-md border px-6 py-3 font-normal transition"
+            className="border-primary font-sora text-primary hover:bg-primary-100 inline-flex cursor-pointer items-center justify-center rounded-md border px-6 py-3 font-normal transition"
           >
             Personal Statement Template
           </Link>
