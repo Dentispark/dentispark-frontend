@@ -95,7 +95,7 @@ export default function Header() {
 
   return (
     <motion.header
-      className={`border-greys-300 sticky top-0 z-50 bg-white/60 backdrop-blur-sm transition-all duration-300 ${
+      className={`border-greys-300 sticky top-0 z-50 bg-white/70 backdrop-blur-md transition-all duration-300 ${
         isScrolled ? "border-b" : ""
       }`}
       variants={headerVariants}
