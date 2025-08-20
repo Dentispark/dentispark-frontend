@@ -6,20 +6,17 @@ import { Button } from "@/src/components/ui/button";
 import Container from "@/src/components/layouts/container";
 
 import testimonial1 from "@/public/images/testimonial-1.png";
+import testimonial2 from "@/public/images/testimonial-2.png";
+import testimonial3 from "@/public/images/testimonial-3.png";
+
 import testimonial from "@/public/images/testimonial-image.png";
 import mTestimonial from "@/public/images/testimonial-image-m.png";
 
-import quoteBg from "@/public/icons/quote.svg";
 import LondonLogo from "@/src/components/icons/London";
 import storyImg from "@/public/images/story.png";
 import bigReadiousBg from "@/public/icons/big-radius-bg.svg";
 import smRadiousBg from "@/public/icons/sm-radius-bg.svg";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-} from "@/src/components/ui/carousel";
-import { cn } from "@/src/lib/utils";
+import quoteBg from "@/public/icons/quote.svg";
 import { Title } from "@/src/components/atoms/title";
 
 type Testimonial = {
@@ -62,7 +59,7 @@ export function Testimonials() {
         </h2>
 
         {/* Hero testimonial */}
-        <div className="relative mt-4 w-full max-w-3xl overflow-hidden rounded-2xl md:h-full">
+        <div className="relative mt-4 w-full max-w-4xl overflow-hidden rounded-2xl md:h-full">
           <Image
             src={testimonial}
             alt="testimonial"
@@ -102,7 +99,7 @@ export function Testimonials() {
         </div>
 
         {/* Two small testimonial cards */}
-
+        {/* 
         <div className="w-full max-w-3xl gap-10">
           <Carousel className="w-full overflow-visible">
             <CarouselContent>
@@ -155,10 +152,110 @@ export function Testimonials() {
               ))}
             </CarouselContent>
           </Carousel>
+        </div> */}
+
+        {/* Testimonial Card section */}
+        <div className="grid w-full max-w-4xl grid-cols-1 gap-10 md:grid-cols-3">
+          {/* Card 1 - Temi Sims */}
+          <div className="relative -rotate-4 overflow-hidden rounded-2xl bg-[#FDF0E6] px-6 pt-4 pb-6">
+            <Image
+              src={quoteBg}
+              alt="Aisha Emma"
+              width={1000}
+              height={1000}
+              className="absolute -right-4 bottom-0 w-20 object-cover"
+            />
+            <p className="mb-2 text-sm leading-relaxed text-gray-700">
+              DentiSpark's free UCAT guide helped me score 2700!
+            </p>
+            <div className="flex items-center gap-3">
+              <div className="h-10 w-10 overflow-hidden rounded-full bg-gray-200">
+                <Image
+                  src={testimonial1}
+                  alt="Temi Sims"
+                  width={40}
+                  height={40}
+                  className="h-full w-full object-cover"
+                />
+              </div>
+              <div>
+                <p className="text-xs font-semibold text-gray-900">Temi Sims</p>
+                <p className="text-[8px] text-gray-600">
+                  Prospective Dental Nursing
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Card 2 - Jamal Johnson */}
+          <div className="bg-error-50 relative overflow-hidden rounded-2xl px-6 pt-4 pb-6">
+            <Image
+              src={quoteBg}
+              alt="Aisha Emma"
+              width={1000}
+              height={1000}
+              className="absolute -right-4 bottom-0 w-20 object-cover"
+            />
+            <p className="mb-2 text-sm leading-relaxed text-gray-700">
+              Mentorship from a Black hygienist kept me motivated.
+            </p>
+            <div className="flex items-center gap-3">
+              <div className="h-10 w-10 overflow-hidden rounded-full bg-gray-200">
+                <Image
+                  src={testimonial2}
+                  alt="Jamal Johnson"
+                  width={40}
+                  height={40}
+                  className="h-full w-full object-cover"
+                />
+              </div>
+              <div>
+                <p className="text-xs font-semibold text-gray-900">
+                  Jamal Johnson
+                </p>
+                <p className="text-[8px] text-gray-600">
+                  BDS - Dental Hygienist
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Card 3 - Aisha Emma */}
+          <div className="bg-secondary-50 relative rotate-3 overflow-hidden rounded-3xl px-6 pt-4 pb-20">
+            <Image
+              src={quoteBg}
+              alt="Aisha Emma"
+              width={1000}
+              height={1000}
+              className="absolute -right-4 bottom-0 w-20 object-cover"
+            />
+            <p className="mb-2 text-sm leading-relaxed text-gray-700">
+              Free apprenticeship guides got me started.
+            </p>
+            <div className="flex items-center gap-3">
+              <div className="h-10 w-10 overflow-hidden rounded-full bg-gray-200">
+                <Image
+                  src={testimonial3}
+                  alt="Aisha Emma"
+                  width={40}
+                  height={40}
+                  className="h-full w-full object-cover"
+                />
+              </div>
+              <div>
+                <p className="text-xs font-semibold text-gray-900">
+                  Aisha Emma
+                </p>
+                <p className="text-[8px] text-gray-600">
+                  Apprentice Dental Nursing, BDS
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
 
         {/* Story highlight */}
-        <div className="bg-black-700 group relative flex w-full max-w-3xl flex-col items-center gap-6 overflow-hidden rounded-4xl px-0 py-12 sm:flex-row md:p-12">
+        <div className="bg-black-700 group relative flex w-full max-w-4xl flex-col items-center gap-6 overflow-hidden rounded-4xl px-0 py-12 sm:flex-row md:p-12">
           <div className="z-10 flex-shrink-0">
             <div className="size-[300px] -rotate-4 overflow-hidden rounded-2xl border-3 border-white transition-transform duration-500 group-hover:rotate-0">
               <Image
