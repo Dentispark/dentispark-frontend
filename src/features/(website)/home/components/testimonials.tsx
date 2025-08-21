@@ -1,7 +1,7 @@
 // components/Testimonials.tsx
 "use client";
 
-import Image, { StaticImageData } from "next/image";
+import Image from "next/image";
 import { Button } from "@/src/components/ui/button";
 import Container from "@/src/components/layouts/container";
 
@@ -19,33 +19,9 @@ import smRadiousBg from "@/public/icons/sm-radius-bg.svg";
 import quoteBg from "@/public/icons/quote.svg";
 import { Title } from "@/src/components/atoms/title";
 
-type Testimonial = {
-  quote: string;
-  name: string;
-  role?: string;
-  institution?: string;
-  avatar: StaticImageData;
-  bgColor: string;
-};
 
-const cards: Testimonial[] = [
-  {
-    quote:
-      "Before Dentispark, I had no clue where to begin with my dental school reapplication. My mentor helped me completely reshape my personal statement and prepare for interviews. I’m now starting dental school this fall!",
-    name: "Neil Sims",
-    role: "London, England",
-    avatar: testimonial1,
-    bgColor: "bg-warning-100",
-  },
-  {
-    quote:
-      "Leading our team in creating groundbreaking solutions has been a thrilling journey. It’s rewarding to see our innovations come to life.",
-    name: "Emma Johnson",
-    role: "CTO, Tech Innovators",
-    avatar: testimonial1,
-    bgColor: "bg-error-100",
-  },
-];
+
+
 
 export function Testimonials() {
   return (
@@ -166,7 +142,7 @@ export function Testimonials() {
               className="absolute -right-4 bottom-0 w-20 object-cover"
             />
             <p className="mb-2 text-sm leading-relaxed text-gray-700">
-              DentiSpark's free UCAT guide helped me score 2700!
+              DentiSpark&apos;s free UCAT guide helped me score 2700!
             </p>
             <div className="flex items-center gap-3">
               <div className="h-10 w-10 overflow-hidden rounded-full bg-gray-200">
