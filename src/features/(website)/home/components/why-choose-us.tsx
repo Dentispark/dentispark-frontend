@@ -17,23 +17,22 @@ import whyUsImage4 from "@/public/images/why-us-4.png";
 
 const features = [
   {
-    title: "Free Guides",
+    title: "Free Guides & Checklists",
     description:
-      "Access expert-curated resources designed to support every step of your dental school journey—from application tips and personal statement templates to reapplication strategies and interview preparation.",
+      "Access expertly crafted guides and checklists designed to help you stay organized, informed, and confident every step of the way — and yes, they're absolutely free.",
     imageSrc: whyUsImage1,
     imageAlt: "Person studying a guide",
   },
   {
     title: "AI-Driven Tools",
-    description:
-      "Leverage intelligent tools that streamline your application process, generate tailored personal statements, and practice interview questions with instant feedback.",
+    description: "Smart Features to Help You Work Faster and Smarter",
     imageSrc: whyUsImage2,
     imageAlt: "AI robot on a screen",
   },
   {
-    title: "Direct University Partnerships",
+    title: "Direct University Access",
     description:
-      "Get exclusive access and direct links to partner universities, fast-track your applications, and enjoy priority support from admissions officers.",
+      "Gain streamlined access to verified university representatives for guidance, application support, and up-to-date information — all in one place.",
     imageSrc: whyUsImage3,
     imageAlt: "Key unlocking a door",
   },

@@ -1,55 +1,67 @@
 // components/HowItWorks.tsx
 "use client";
 
-import Image, { StaticImageData } from "next/image";
 import Link from "next/link";
 import Container from "@/src/components/layouts/container";
 import { ArrowRight } from "lucide-react";
 
-import howItWorksImage1 from "@/public/images/how-to-work-img-1.png";
-import howItWorksImage2 from "@/public/images/how-to-work-img-2.png";
-import howItWorksImage3 from "@/public/images/how-to-work-img-3.png";
-
-import HowItWorksIcon1 from "@/src/components/icons/HowItWorksIcon1";
-import HowItWorksIcon2 from "@/src/components/icons/HowItWorksIcon2";
-import HowItWorksIcon3 from "@/src/components/icons/HowItWorksIcon3";
+import DiscoverYourPath from "@/public/icons/discover-your-path.svg";
+import AccessFreeTools from "@/public/icons/access-free-tool.svg";
+import ConnectWithScholars from "@/public/icons/connect-with-mentors.svg";
+import TrackYourJourney from "@/public/icons/track-your-journey.svg";
+import { cn } from "@/src/lib/utils";
+import Image, { StaticImageData } from "next/image";
 
 type Card = {
+  step: number;
   title: string;
+  titleColor: string;
   description: string;
-  image: { src: StaticImageData; alt: string };
-  icon: React.ElementType;
-  cta?: { text: string; href: string };
+  icon: StaticImageData;
+  bgColor: string;
+  hasLink?: boolean;
 };
 
 const cards: Card[] = [
   {
-    title: "Apply as a student",
+    step: 1,
+    title: "Discover Your Path",
+    titleColor: "text-success-600",
     description:
-      "Sign up, share your background, and tell us what kind of guidance you need.",
-    image: { src: howItWorksImage1, alt: "Apply as a student" },
-    icon: HowItWorksIcon1,
+      "Take the quiz to find your category (BDS, Dental Nursing, Dental Hygiene/Therapy).",
+    icon: DiscoverYourPath,
+    bgColor: "bg-success-200",
   },
   {
-    title: "Access Support",
-    description:
-      "Receive help with applications, reapplications, personal statements, mock interviews, and where possible, partial funding for test or platform fees.",
-    image: { src: howItWorksImage2, alt: "Access Support" },
-    icon: HowItWorksIcon2,
+    step: 2,
+    title: "Access Free Tools",
+    titleColor: "text-warning-600",
+    description: "Use guides, checklists, and university data.",
+    icon: AccessFreeTools,
+    bgColor: "bg-warning-200",
   },
   {
-    title: "1:1 Mentorship",
-    description:
-      "Unlock 1:1 Mentorship with a Premium Plan – Try it free for 14 days!",
-    image: { src: howItWorksImage3, alt: "1:1 Mentorship" },
-    icon: HowItWorksIcon3,
-    cta: { text: "Try it now", href: "/premium" },
+    step: 3,
+    title: "Connect with Mentors",
+    titleColor: "text-secondary-600",
+    description: "Meet Black dental professionals.",
+    icon: ConnectWithScholars,
+    bgColor: "bg-secondary-200",
+  },
+  {
+    step: 4,
+    title: "Track Your Journey",
+    titleColor: "text-primary",
+    description: "Follow year-specific milestones.",
+    icon: TrackYourJourney,
+    bgColor: "bg-primary-200",
+    hasLink: true,
   },
 ];
 
 export function HowItWorks() {
   return (
-    <section className="bg-primary-100 py-16">
+    <section className="py-16">
       <Container className="flex flex-col items-center space-y-6">
         <span className="border-primary-700 text-primary-700 bg-primary-100 rounded-full border px-6 py-2 text-base font-medium">
           How it works
@@ -58,44 +70,57 @@ export function HowItWorks() {
           Simple. Supportive. Powerful.
         </h2>
 
-        <div className="grid w-full max-w-6xl grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {cards.map(({ title, description, image, icon: Icon, cta }) => (
-            <div
-              key={title}
-              className="group flex flex-col overflow-hidden rounded-t-3xl rounded-b-2xl bg-white shadow-[0px_1px_20px_5px_rgba(65,189,145,0.05)]"
-            >
-              <Image
-                src={image.src}
-                alt={image.alt}
-                width={1000}
-                height={250}
-                className="transform overflow-hidden rounded-t-3xl object-cover transition-transform duration-300 ease-out group-hover:scale-105"
-                quality={80}
-                placeholder="blur"
-                priority
-              />
-
-              <div className="flex flex-col px-8 pt-6 pb-10">
-                <div className="text-primary bg-primary-100 border-primary-300 flex size-12 items-center justify-center rounded-full border-[.75px]">
-                  <Icon className="h-7 w-7" />
+        <div className="grid w-full grid-cols-1 gap-4 md:grid-cols-2 md:gap-8">
+          {cards.map(
+            (
+              {
+                step,
+                bgColor,
+                icon: Icon,
+                title,
+                titleColor,
+                description,
+                hasLink,
+              },
+              index,
+            ) => (
+              <div
+                key={index}
+                className="border-greys-300 bg-white-100 rounded-3xl border p-8 shadow-[0_1px_40px_10px_rgba(46,46,46,0.05)]"
+              >
+                <div className="flex items-center gap-4">
+                  <div className={cn(bgColor, "flex-shrink-0 rounded-4xl")}>
+                    <Image
+                      src={Icon}
+                      alt=""
+                      width={1000}
+                      height={1000}
+                      className="w-24 object-contain"
+                    />
+                  </div>
+                  <div className="flex flex-1 flex-col">
+                    <h3
+                      className={cn(titleColor, "mb-2 text-lg font-semibold")}
+                    >
+                      {step}. {title}
+                    </h3>
+                    <p className="text-text-color font-sora text-sm leading-relaxed">
+                      {description}
+                    </p>
+                    {hasLink && (
+                      <Link
+                        href="/journey"
+                        className="hover:text-success-700 mt-3 inline-flex items-center gap-1 text-xs font-medium text-[#12AC75] transition-colors"
+                      >
+                        Start Your Journey for Free
+                        <ArrowRight className="h-4 w-4" />
+                      </Link>
+                    )}
+                  </div>
                 </div>
-                <h3 className="text-primary mt-2 text-lg font-semibold">
-                  {title}
-                </h3>
-                <p className="font-sora mt-4 flex-1 text-sm leading-[160%] text-gray-700">
-                  {description}
-                </p>
-                {cta && (
-                  <Link
-                    href={cta.href}
-                    className="font-sora text-primary-800 mt-10 inline-flex items-center gap-1 font-medium hover:underline"
-                  >
-                    {cta.text} <ArrowRight size={18} />
-                  </Link>
-                )}
               </div>
-            </div>
-          ))}
+            ),
+          )}
         </div>
       </Container>
     </section>
