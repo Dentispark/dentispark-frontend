@@ -130,6 +130,7 @@ export function ContactUsForm() {
                       placeholder="Enter your first name"
                       aria-invalid={!!form.formState.errors.firstName}
                       {...field}
+                      className="h-12"
                     />
                   </FormControl>
                   <FormMessage />
@@ -147,6 +148,7 @@ export function ContactUsForm() {
                       placeholder="Enter your last name"
                       aria-invalid={!!form.formState.errors.lastName}
                       {...field}
+                      className="h-12"
                     />
                   </FormControl>
                   <FormMessage />
@@ -200,7 +202,7 @@ export function ContactUsForm() {
                       <Input
                         type="tel"
                         placeholder="Enter your phone number"
-                        className="rounded-l-none border-l-0 focus-visible:ring-2"
+                        className="h-12 rounded-l-none border-l-0 focus-visible:ring-2"
                         aria-invalid={!!form.formState.errors.phone}
                         {...field}
                       />
