@@ -17,6 +17,7 @@ export default function AuthLayout({ children }: AuthLayoutProps) {
   const isForgotPasswordPage = pathname === "/forgot-password";
   const isVerifyEmailPage = pathname === "/verify-email";
   const isNewPasswordPage = pathname === "/new-password";
+  const isProfileSetupPage = pathname === "/profile-setup";
 
   return (
     <div className="min-h-screen bg-white">
@@ -35,7 +36,8 @@ export default function AuthLayout({ children }: AuthLayoutProps) {
             {!isLoginPage &&
               !isForgotPasswordPage &&
               !isVerifyEmailPage &&
-              !isNewPasswordPage && (
+              !isNewPasswordPage &&
+              !isProfileSetupPage && (
                 <div>
                   <Link href="/login">
                     <Button className="font-sora" variant="outline">
@@ -47,7 +49,8 @@ export default function AuthLayout({ children }: AuthLayoutProps) {
             {!isSignUpPage &&
               !isForgotPasswordPage &&
               !isVerifyEmailPage &&
-              !isNewPasswordPage && (
+              !isNewPasswordPage &&
+              !isProfileSetupPage && (
                 <div>
                   <Link href="/sign-up">
                     <Button className="font-sora">Sign Up</Button>
@@ -61,7 +64,8 @@ export default function AuthLayout({ children }: AuthLayoutProps) {
             {!isSignUpPage &&
               !isForgotPasswordPage &&
               !isVerifyEmailPage &&
-              !isNewPasswordPage && (
+              !isNewPasswordPage &&
+              !isProfileSetupPage && (
                 <Link href="/sign-up">
                   <Button className="font-sora h-auto px-5 py-2 text-sm">
                     Sign Up
