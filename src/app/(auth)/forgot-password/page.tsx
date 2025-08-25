@@ -121,7 +121,7 @@ export default function ForgotPasswordPage() {
                         <Input
                           type="email"
                           placeholder="Enter your email"
-                          className="pl-10"
+                          className="h-12 pl-10"
                           aria-invalid={!!form.formState.errors.email}
                           {...field}
                         />
