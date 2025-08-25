@@ -1,5 +1,4 @@
 @import url("https://fonts.googleapis.com/css2?family=Sora:wght@100..800&display=swap");
-
 @import "tailwindcss";
 @import "tw-animate-css";
 
@@ -74,9 +73,60 @@
   --color-greys-400: var(--color-greys-400)
   --color-greys-1000: var(--greys-1000);
 
-  --color-warning-100: var(--warning-100);
+  --color-success-50: var(--success-50)
+  --color-success-100: var(--success-100);
+  --color-success-200: var(--success-200);
+  --color-success-300: var(--success-300);
+  --color-success-400: var(--success-400);
+  --color-success-500: var(--success-500);
+  --color-success-600: var(--success-600);
+  --color-success-700: var(--success-700);
+  --color-success-800: var(--success-800);
+  --color-success-900: var(--success-900);
 
+  --color-warning-50: var(--warning-50)
+  --color-warning-100: var(--warning-100);
+  --color-warning-200: var(--warning-200);
+  --color-warning-300: var(--warning-300);
+  --color-warning-400: var(--warning-400);
+  --color-warning-500: var(--warning-500);
+  --color-warning-600: var(--warning-600);
+  --color-warning-700: var(--warning-700);
+  --color-warning-800: var(--warning-800);
+  --color-warning-900: var(--warning-900);
+  
+  --color-error-50: var(--error-50);
   --color-error-100: var(--error-100);
+  --color-error-200: var(--error-200);
+  --color-error-300: var(--error-300);
+  --color-error-400: var(--error-400);
+  --color-error-500: var(--error-500);
+  --color-error-600: var(--error-600);
+  --color-error-700: var(--error-700);
+  --color-error-800: var(--error-800);
+  --color-error-900: var(--error-900);
+
+  --color-secondary-50: var(--secondary-50);
+  --color-secondary-100: var(--secondary-100);
+  --color-secondary-200: var(--secondary-200);
+  --color-secondary-300: var(--secondary-300);
+  --color-secondary-400: var(--secondary-400);
+  --color-secondary-500: var(--secondary-500);
+  --color-secondary-600: var(--secondary-600);
+  --color-secondary-700: var(--secondary-700);
+  --color-secondary-800: var(--secondary-800);
+  --color-secondary-900: var(--secondary-900);
+
+  --color-tertiary-50: var(--tertiary-50);
+  --color-tertiary-100: var(--tertiary-100);
+  --color-tertiary-200: var(--tertiary-200);
+  --color-tertiary-300: var(--tertiary-300);
+  --color-tertiary-400: var(--tertiary-400);
+  --color-tertiary-500: var(--tertiary-500);
+  --color-tertiary-600: var(--tertiary-600);
+  --color-tertiary-700: var(--tertiary-700);
+  --color-tertiary-800: var(--tertiary-800);
+  --color-tertiary-900: var(--tertiary-900);
 
   
 }
@@ -146,10 +196,66 @@
   --greys-1000: oklch(0.31 0 89.9);
 
   /* WARNINGS */
-  --warning-100: oklch(0.963 0.019 60.2);
+  --warning-50:  oklch(0.963 0.019 60.2);  
+  --warning-100: oklch(0.887 0.062 60.5);  
+  --warning-200: oklch(0.836 0.094 59.7);  
+  --warning-300: oklch(0.769 0.135 58.7);  
+  --warning-400: oklch(0.729 0.157 55.2);  
+  --warning-500: oklch(0.677 0.183 48.4);  
+  --warning-600: oklch(0.632 0.170 48.5);  
+  --warning-700: oklch(0.527 0.139 49.8);  
+  --warning-800: oklch(0.439 0.115 50.5);  
+  --warning-900: oklch(0.366 0.094 51.5);  
+
+  /* SUCCESS */
+  --success-50:  oklch(0.968 0.021 158.6);  
+  --success-100: oklch(0.902 0.068 157.2); 
+  --success-200: oklch(0.857 0.100 156.1);  
+  --success-300: oklch(0.800 0.142 153.9);  
+  --success-400: oklch(0.768 0.165 152.3); 
+  --success-500: oklch(0.723 0.192 149.6); 
+  --success-600: oklch(0.673 0.178 149.8); 
+  --success-700: oklch(0.563 0.147 150.0); 
+  --success-800: oklch(0.468 0.119 150.4); 
+  --success-900: oklch(0.390 0.098 150.4); 
+
 
   /* ERRORS */
-  --error-100: oklch(0.951 0.019 17.5);
+  --error-50:  oklch(0.951 0.019 17.5);  /* #fbeaea */
+  --error-100: oklch(0.849 0.058 18.3);  /* #f1bfbf */
+  --error-200: oklch(0.777 0.091 19.3);  /* #eb9f9f */
+  --error-300: oklch(0.685 0.137 21.3);  /* #e27474 */
+  --error-400: oklch(0.633 0.165 23.0);  /* #dc5959 */
+  --error-500: oklch(0.568 0.200 26.4);  /* #d32f2f */
+  --error-600: oklch(0.530 0.186 26.3);  /* #c02b2b */
+  --error-700: oklch(0.444 0.153 26.1);  /* #962121 */
+  --error-800: oklch(0.371 0.124 25.7);  /* #741a1a */
+  --error-900: oklch(0.311 0.101 25.2);  /* #591414 */
+
+
+  /* SECONDARY */
+  --secondary-50:  oklch(0.951 0.023 275.4);  /* #eaeeff */
+  --secondary-100: oklch(0.844 0.074 274.6);  /* #bdc9fd */
+  --secondary-200: oklch(0.770 0.114 273.5);  /* #9daffd */
+  --secondary-300: oklch(0.668 0.171 271.4);  /* #708afc */
+  --secondary-400: oklch(0.608 0.205 269.9);  /* #5573fb */
+  --secondary-500: oklch(0.528 0.254 266.5);  /* #2a50fa */
+  --secondary-600: oklch(0.494 0.236 266.6);  /* #2649e4 */
+  --secondary-700: oklch(0.415 0.193 266.9);  /* #1e39b2 */
+  --secondary-800: oklch(0.348 0.157 267.2);  /* #172c8a */
+  --secondary-900: oklch(0.293 0.125 267.7);  /* #122269 */
+
+  /* TERTIARY */
+  --tertiary-50:  oklch(0.990 0.030 102.9);  /* #fffde6 */
+  --tertiary-100: oklch(0.970 0.092 104.0);  /* #fff9b0 */
+  --tertiary-200: oklch(0.960 0.131 104.9);  /* #fff78a */
+  --tertiary-300: oklch(0.945 0.173 105.4);  /* #fef354 */
+  --tertiary-400: oklch(0.939 0.189 105.3);  /* #fef133 */
+  --tertiary-500: oklch(0.930 0.197 104.3);  /* #feed00 */
+  --tertiary-600: oklch(0.867 0.183 104.5);  /* #e7d800 */
+  --tertiary-700: oklch(0.719 0.152 104.4);  /* #b4a800 */
+  --tertiary-800: oklch(0.597 0.126 104.2);  /* #8c8200 */
+  --tertiary-900: oklch(0.494 0.105 104.8);  /* #6b6400 */
 }
 
 @layer base {

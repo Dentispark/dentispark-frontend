@@ -5,8 +5,10 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { Eye, EyeOff, Mail, Lock, User } from "lucide-react";
+import { toast } from "sonner";
 
 import Logo from "@/src/components/icons/Logo";
 import { Button } from "@/src/components/ui/button";
@@ -46,6 +48,7 @@ export default function SignUpPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
 
   const form = useForm<SignUpFormData>({
     resolver: zodResolver(signUpSchema),
@@ -70,8 +73,13 @@ export default function SignUpPage() {
 
       // Handle successful sign up
       console.log("Sign up successful");
+      toast.success("Account created successfully!");
+
+      // Redirect to profile setup page
+      router.push("/profile-setup");
     } catch (error) {
       console.error("Sign up error:", error);
+      toast.error("Failed to create account. Please try again.");
     } finally {
       setIsLoading(false);
     }
@@ -209,7 +217,7 @@ export default function SignUpPage() {
                           <Input
                             type="text"
                             placeholder="Enter your first name"
-                            className="pl-10"
+                            className="h-12 pl-10"
                             aria-invalid={!!form.formState.errors.firstName}
                             {...field}
                           />
@@ -232,7 +240,7 @@ export default function SignUpPage() {
                           <Input
                             type="text"
                             placeholder="Enter your last name"
-                            className="pl-10"
+                            className="h-12 pl-10"
                             aria-invalid={!!form.formState.errors.lastName}
                             {...field}
                           />
@@ -258,7 +266,7 @@ export default function SignUpPage() {
                           <Input
                             type={showPassword ? "text" : "password"}
                             placeholder="Enter your password"
-                            className="pr-10 pl-10"
+                            className="h-12 pr-10 pl-10"
                             aria-invalid={!!form.formState.errors.password}
                             {...field}
                           />
@@ -292,7 +300,7 @@ export default function SignUpPage() {
                           <Input
                             type={showConfirmPassword ? "text" : "password"}
                             placeholder="Re-enter your password"
-                            className="pr-10 pl-10"
+                            className="h-12 pr-10 pl-10"
                             aria-invalid={
                               !!form.formState.errors.confirmPassword
                             }
@@ -332,7 +340,7 @@ export default function SignUpPage() {
                         <Input
                           type="email"
                           placeholder="Enter your email address"
-                          className="pl-10"
+                          className="h-12 pl-10"
                           aria-invalid={!!form.formState.errors.email}
                           {...field}
                         />
