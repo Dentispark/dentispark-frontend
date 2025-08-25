@@ -14,6 +14,9 @@ export default function AuthLayout({ children }: AuthLayoutProps) {
   const pathname = usePathname();
   const isLoginPage = pathname === "/login";
   const isSignUpPage = pathname === "/sign-up";
+  const isForgotPasswordPage = pathname === "/forgot-password";
+  const isVerifyEmailPage = pathname === "/verify-email";
+  const isNewPasswordPage = pathname === "/new-password";
 
   return (
     <div className="min-h-screen bg-white">
@@ -29,33 +32,42 @@ export default function AuthLayout({ children }: AuthLayoutProps) {
 
           {/* Desktop Navigation - hidden on mobile */}
           <div className="hidden items-center space-x-4 md:flex">
-            {!isLoginPage && (
-              <div>
-                <Link href="/login">
-                  <Button className="font-sora" variant="outline">
-                    Log In
-                  </Button>
-                </Link>
-              </div>
-            )}
-            {!isSignUpPage && (
-              <div>
-                <Link href="/sign-up">
-                  <Button className="font-sora">Sign Up</Button>
-                </Link>
-              </div>
-            )}
+            {!isLoginPage &&
+              !isForgotPasswordPage &&
+              !isVerifyEmailPage &&
+              !isNewPasswordPage && (
+                <div>
+                  <Link href="/login">
+                    <Button className="font-sora" variant="outline">
+                      Log In
+                    </Button>
+                  </Link>
+                </div>
+              )}
+            {!isSignUpPage &&
+              !isForgotPasswordPage &&
+              !isVerifyEmailPage &&
+              !isNewPasswordPage && (
+                <div>
+                  <Link href="/sign-up">
+                    <Button className="font-sora">Sign Up</Button>
+                  </Link>
+                </div>
+              )}
           </div>
 
           {/* Mobile - conditionally show button */}
           <div className="block md:hidden">
-            {!isSignUpPage && (
-              <Link href="/sign-up">
-                <Button className="font-sora h-auto px-5 py-2 text-sm">
-                  Sign Up
-                </Button>
-              </Link>
-            )}
+            {!isSignUpPage &&
+              !isForgotPasswordPage &&
+              !isVerifyEmailPage &&
+              !isNewPasswordPage && (
+                <Link href="/sign-up">
+                  <Button className="font-sora h-auto px-5 py-2 text-sm">
+                    Sign Up
+                  </Button>
+                </Link>
+              )}
             {!isLoginPage && isSignUpPage && (
               <Link href="/login">
                 <Button
