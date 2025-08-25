@@ -222,7 +222,7 @@ export default function NewPasswordPage({
                         <Input
                           type={showPassword ? "text" : "password"}
                           placeholder="Enter your new Password"
-                          className="pr-10 pl-10"
+                          className="h-12 pr-10 pl-10"
                           aria-invalid={!!form.formState.errors.password}
                           {...field}
                         />
@@ -257,7 +257,7 @@ export default function NewPasswordPage({
                         <Input
                           type={showConfirmPassword ? "text" : "password"}
                           placeholder="Confirm your new Password"
-                          className="pr-10 pl-10"
+                          className="h-12 pr-10 pl-10"
                           aria-invalid={!!form.formState.errors.confirmPassword}
                           {...field}
                         />
