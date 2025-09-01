@@ -3,6 +3,7 @@ import "./globals.css";
 import { ReactQueryProvider } from "@/src/lib/react-query";
 import { Toaster } from "sonner";
 import genralSans from "@/src/lib/font";
+import { ModalProvider } from "@/src/components/ui/modal-provider";
 
 export const metadata: Metadata = {
   title: "Dentispark - Dental School Guidance & Mentorship",
@@ -30,9 +31,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={genralSans.className}>
-      <body>
+      <body suppressHydrationWarning={true}>
         <ReactQueryProvider>{children}</ReactQueryProvider>
-
+        <ModalProvider />
         <Toaster richColors />
       </body>
     </html>

@@ -7,6 +7,7 @@ import Link from "next/link";
 import { Button } from "../ui/button";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { cn } from "@/src/lib/utils";
 
 export default function Header() {
   const pathname = usePathname();
@@ -95,9 +96,10 @@ export default function Header() {
 
   return (
     <motion.header
-      className={`border-greys-300 sticky top-0 z-50 bg-white/70 backdrop-blur-md transition-all duration-300 ${
-        isScrolled ? "border-b" : ""
-      }`}
+      className={cn(
+        "border-greys-300 sticky top-0 z-50 bg-white/70 backdrop-blur-md transition-all duration-300",
+        isScrolled ? "border-b" : "",
+      )}
       variants={headerVariants}
       initial="hidden"
       animate="visible"
@@ -150,10 +152,10 @@ export default function Header() {
               >
                 <Link
                   href={item.href}
-                  className={
-                    "text-black-600 hover:text-primary relative cursor-pointer text-xs font-medium transition-colors duration-300 " +
-                    (pathname === item.href ? "text-primary" : "")
-                  }
+                  className={cn(
+                    "text-black-600 hover:text-primary relative cursor-pointer text-xs font-medium transition-colors duration-300",
+                    pathname === item.href ? "text-primary" : "",
+                  )}
                 >
                   <motion.span
                     className="block"
