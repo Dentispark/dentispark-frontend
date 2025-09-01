@@ -122,7 +122,7 @@ export function PostItem({ post }: PostItemProps) {
             <Button
               variant={"outline"}
               onClick={handleSubmitComment}
-              className="size-10 rounded-full"
+              className="size-10 rounded-full hover:bg-white"
             >
               <svg
                 width="20"
