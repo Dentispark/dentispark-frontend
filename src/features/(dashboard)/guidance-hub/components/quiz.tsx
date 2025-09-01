@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useRouter } from "next/navigation";
 import { cn } from "@/src/lib/utils";
@@ -143,7 +143,7 @@ export default function Quiz({ className }: QuizProps) {
   };
 
   // Show section start modal
-  const showSectionModal = (sectionIndex: number, sectionTitle: string) => {
+  const showSectionModal = useCallback((sectionIndex: number, sectionTitle: string) => {
     const isFirstSection = sectionIndex === 0;
 
     showModal({
@@ -179,7 +179,7 @@ export default function Quiz({ className }: QuizProps) {
       },
       secondaryActionTitle: "Cancel",
     });
-  };
+  }, [showModal, setQuizStarted, setIsInitialized, hideModal, router]);
 
   // Show modal on component mount and section changes
   useEffect(() => {
@@ -190,7 +190,7 @@ export default function Quiz({ className }: QuizProps) {
       // Show modal for first section on initial load
       showSectionModal(currentSectionIndex, currentSection?.title || "");
     }
-  }, []);
+  }, [isInitialized, currentSectionIndex, currentSection?.title, showSectionModal]);
 
   // Show modal when section changes (except initial load)
   useEffect(() => {
@@ -198,7 +198,7 @@ export default function Quiz({ className }: QuizProps) {
       setQuizStarted(false); // Pause quiz to show modal
       showSectionModal(currentSectionIndex, currentSection?.title || "");
     }
-  }, [currentSectionIndex]); // Remove showModal and router from dependencies to prevent infinite loop
+  }, [currentSectionIndex, isInitialized, currentSection?.title, showSectionModal]);
 
   // Load saved answers and scores on component mount
   useEffect(() => {
