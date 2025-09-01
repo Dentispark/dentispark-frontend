@@ -32,14 +32,17 @@ const mockGuides = [
 ];
 
 interface GuidePageProps {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 }
 
-export default function GuidePage({ params }: GuidePageProps) {
+export default async function GuidePage({ params }: GuidePageProps) {
+  // Await the params as required by Next.js 15
+  const { id } = await params;
+  
   // Find the guide by ID
-  const guide = mockGuides.find((guide) => guide.id === params.id);
+  const guide = mockGuides.find((guide) => guide.id === id);
 
   // If guide not found, you might want to redirect or show 404
   if (!guide) {
@@ -55,5 +58,5 @@ export default function GuidePage({ params }: GuidePageProps) {
     );
   }
 
-  return <GuideDetail guide={guide} />;
+  return <GuideDetail />;
 }
