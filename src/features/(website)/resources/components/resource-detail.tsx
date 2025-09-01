@@ -15,6 +15,7 @@ import resourceDetailImage from "@/public/images/resource-detail.png";
 import resourceContentImage from "@/public/images/resource-content-img.png";
 import type { Resource } from "../data/resources";
 import { ResourcesGridSecondary } from "./resources-grid-secondary";
+import { cn } from "@/src/lib/utils";
 
 interface ResourceDetailProps {
   resource: Resource;
@@ -167,11 +168,12 @@ export function ResourceDetail({ resource }: ResourceDetailProps) {
                           <li key={index}>
                             <button
                               onClick={() => scrollToSection(sectionId)}
-                              className={`font-sora text-left text-sm transition-colors hover:text-black ${
+                              className={cn(
+                                "font-sora text-left text-sm transition-colors hover:text-black",
                                 isActive
                                   ? "font-medium text-black"
-                                  : "text-black-400"
-                              }`}
+                                  : "text-black-400",
+                              )}
                             >
                               {item}
                             </button>
@@ -225,11 +227,12 @@ export function ResourceDetail({ resource }: ResourceDetailProps) {
                 {/* Introduction Section */}
                 <div>
                   <h2
-                    className={`mb-6 text-2xl font-semibold transition-colors lg:text-3xl ${
+                    className={cn(
+                      "mb-6 text-2xl font-semibold transition-colors lg:text-3xl",
                       activeSection === "section-0"
                         ? "text-black"
-                        : "text-black-700"
-                    }`}
+                        : "text-black-700",
+                    )}
                   >
                     Introduction: Careers in Medicine
                   </h2>
@@ -274,11 +277,12 @@ export function ResourceDetail({ resource }: ResourceDetailProps) {
               <div className="space-y-8" id="section-1">
                 <div>
                   <h2
-                    className={`mb-6 text-2xl font-semibold transition-colors lg:text-3xl ${
+                    className={cn(
+                      "mb-6 text-2xl font-semibold transition-colors lg:text-3xl",
                       activeSection === "section-1"
                         ? "text-black"
-                        : "text-black-700"
-                    }`}
+                        : "text-black-700",
+                    )}
                   >
                     Lorem Ipsum dolor sit amet consectetur.
                   </h2>
@@ -315,9 +319,10 @@ export function ResourceDetail({ resource }: ResourceDetailProps) {
                   <div key={sectionId} className="space-y-8" id={sectionId}>
                     <div>
                       <h2
-                        className={`mb-6 text-2xl font-semibold transition-colors lg:text-3xl ${
-                          isActive ? "text-black" : "text-black-700"
-                        }`}
+                        className={cn(
+                          "mb-6 text-2xl font-semibold transition-colors lg:text-3xl",
+                          isActive ? "text-black" : "text-black-700",
+                        )}
                       >
                         {item}
                       </h2>

@@ -84,7 +84,10 @@ export function FeaturesSection() {
                         y: -5,
                         transition: { duration: 0.2 },
                       }}
-                      className={`${feature.bgColor} group relative h-full overflow-hidden rounded-[12px] p-6 transition-shadow duration-300 hover:shadow-sm`}
+                      className={cn(
+                        "group relative h-full overflow-hidden rounded-[12px] p-6 transition-shadow duration-300 hover:shadow-sm",
+                        feature.bgColor,
+                      )}
                     >
                       {/* Icon */}
                       <div className="mb-6 flex items-center justify-start">

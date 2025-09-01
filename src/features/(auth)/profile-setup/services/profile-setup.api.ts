@@ -19,7 +19,7 @@ export const profileSetupApi = {
   ): Promise<ProfileSetupResponse> => {
     // const response = await baseApi.post("/auth/profile-setup", data);
     // return response.data;
-    
+
     // Temporary mock response - TODO: Replace with actual API call
     console.log("Profile setup data:", data);
     return {
