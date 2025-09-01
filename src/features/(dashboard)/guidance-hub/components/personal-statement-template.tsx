@@ -3,14 +3,11 @@
 import { motion } from "framer-motion";
 import { Download } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { Button } from "@/src/components/ui/button";
 import { Breadcrumb } from "@/src/components/ui/breadcrumb";
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
 } from "@/src/components/ui/carousel";
 import { Template, RECENT_TEMPLATES, TOP_TEMPLATES } from "../constants";
 

@@ -7,11 +7,8 @@ import useEmblaCarousel, {
 import { cn } from "@/src/lib/utils";
 import { Button } from "@/src/components/ui/button";
 import {
-  ArrowLeftIcon,
-  ArrowRightIcon,
   ChevronLeft,
   ChevronRight,
-  CircleUser,
 } from "lucide-react";
 
 type CarouselApi = UseEmblaCarouselType[1];

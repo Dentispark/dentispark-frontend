@@ -1,8 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { Button } from "@/src/components/ui/button";
-import { Input } from "@/src/components/ui/input";
 import { Post } from "../types";
 import { PostItem } from "./post-item";
 import { Textarea } from "@/src/components/ui/textarea";
@@ -13,13 +11,6 @@ interface PostsSectionProps {
 
 export function PostsSection({ posts }: PostsSectionProps) {
   const [newPost, setNewPost] = useState("");
-
-  const handleSubmitPost = () => {
-    if (newPost.trim()) {
-      // Handle post submission logic here
-      setNewPost("");
-    }
-  };
 
   return (
     <div className="rounded-xl bg-white py-2">

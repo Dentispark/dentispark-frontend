@@ -119,8 +119,8 @@ export default function NotFound() {
             Oops! Page Not Found
           </h2>
           <p className="text-text-color mx-auto mb-8 max-w-2xl text-lg leading-relaxed">
-            It looks like the page you're looking for has taken a dental break!
-            Don't worry, we'll help you get back on track to your dental career
+            It looks like the page you&apos;re looking for has taken a dental break!
+            Don&apos;t worry, we&apos;ll help you get back on track to your dental career
             goals.
           </p>
         </motion.div>

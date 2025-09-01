@@ -1,8 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { motion } from "framer-motion";
-import Logo from "@/src/components/icons/Logo";
+import Image from "next/image";
 import { DashboardSidebarProps } from "./types";
 import { useLogout } from "@/src/hooks/use-logout";
 import { cn } from "@/src/lib/utils";
@@ -27,9 +26,11 @@ export default function DashboardSidebar({
         <div className="border-greys-300 flex items-center justify-between p-4 lg:hidden">
           <div className="flex items-center space-x-3">
             <div className="bg-primary-100 flex h-10 w-10 items-center justify-center rounded-full">
-              <img
+              <Image
                 src="/images/profile.png"
                 alt="Profile"
+                width={40}
+                height={40}
                 className="h-10 w-10 rounded-full object-cover"
                 onError={(e) => {
                   e.currentTarget.style.display = "none";

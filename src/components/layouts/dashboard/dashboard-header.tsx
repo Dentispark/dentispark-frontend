@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import Logo from "@/src/components/icons/Logo";
 import { DashboardHeaderProps } from "./types";
 import Image from "next/image";

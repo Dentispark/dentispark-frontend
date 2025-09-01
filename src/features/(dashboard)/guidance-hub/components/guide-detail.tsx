@@ -12,25 +12,14 @@ import {
   Twitter,
 } from "lucide-react";
 import { Breadcrumb } from "@/src/components/ui/breadcrumb";
-import resourceDetailImage from "@/public/images/resource-detail.png";
 import resourceContentImage from "@/public/images/resource-content-img.png";
 import { cn } from "@/src/lib/utils";
 
-interface Guide {
-  id: string;
-  title: string;
-  description: string;
-  date: string;
-  image: string;
-  category: string;
-}
-
 interface GuideDetailProps {
-  guide: Guide;
   className?: string;
 }
 
-export default function GuideDetail({ guide, className }: GuideDetailProps) {
+export default function GuideDetail({ className }: GuideDetailProps) {
   const router = useRouter();
   const [isTocCollapsed, setIsTocCollapsed] = useState(false);
   const [activeSection, setActiveSection] = useState<string>("section-0");

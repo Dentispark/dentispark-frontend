@@ -10,7 +10,6 @@ import { useModal } from "@/src/hooks/use-modal";
 import {
   QUIZ_SECTIONS,
   QuizSection,
-  QuizQuestion,
   QuizOption,
 } from "../constants/quiz-questions";
 
@@ -156,13 +155,13 @@ export default function Quiz({ className }: QuizProps) {
         <span>
           {isFirstSection ? (
             <>
-              You'll need to score at least 70% to pass this quiz.
+              You&apos;ll need to score at least 70% to pass this quiz.
               <br />
               Give it your best shot!
             </>
           ) : (
             <>
-              You're about to start the {sectionTitle} section.
+              You&apos;re about to start the {sectionTitle} section.
               <br />
               Answer all 8 questions to continue.
             </>
