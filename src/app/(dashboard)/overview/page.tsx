@@ -21,6 +21,7 @@ export default function OverviewPage() {
           <CalculatorSidebar className="flex-1" />
         </div>
       </div>
+      œ
     </div>
   );
 }
