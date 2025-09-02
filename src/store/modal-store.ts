@@ -1,14 +1,17 @@
-import { create } from 'zustand';
-import { ReactNode } from 'react';
+import { create } from "zustand";
+import { ReactNode } from "react";
 
 export interface ModalConfig {
   modalTitle: string;
+  modalTitleClassName?: string;
   bodyContent: ReactNode;
   action: () => void;
   actionTitle: string;
   secondaryAction?: () => void;
   secondaryActionTitle?: string;
   type: string;
+  size?: "sm" | "md" | "lg" | "xl";
+  isCustomContent?: boolean; // Flag to indicate if content should not be wrapped in DialogDescription
 }
 
 interface ModalStore {
