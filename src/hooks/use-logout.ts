@@ -11,7 +11,7 @@ export function useLogout() {
     // Clear authentication data
     localStorage.removeItem("authToken");
     sessionStorage.clear();
-    
+
     // Redirect to login page
     router.push("/login");
   };
@@ -20,7 +20,9 @@ export function useLogout() {
     showModal({
       type: "logout",
       modalTitle: "Logging Out?",
-      bodyContent: "Are you sure you want to log out from your Dentispark account on this device?",
+      modalTitleClassName: "text-center",
+      bodyContent:
+        "Are you sure you want to log out from your Dentispark account on this device?",
       action: logout,
       actionTitle: "Log out",
       secondaryActionTitle: "Cancel",
