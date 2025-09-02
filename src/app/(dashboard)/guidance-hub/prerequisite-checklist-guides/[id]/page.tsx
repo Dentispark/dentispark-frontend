@@ -40,7 +40,7 @@ interface GuidePageProps {
 export default async function GuidePage({ params }: GuidePageProps) {
   // Await the params as required by Next.js 15
   const { id } = await params;
-  
+
   // Find the guide by ID
   const guide = mockGuides.find((guide) => guide.id === id);
 
