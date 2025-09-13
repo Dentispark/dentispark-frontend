@@ -2,118 +2,152 @@
 
 import { useModalStore } from "@/src/store/modal-store";
 import { Button } from "./button";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from "./dialog";
-import { motion, AnimatePresence } from "framer-motion";
+import { cn } from "@/src/lib/utils";
+import { useEffect, useCallback } from "react";
 
 export function GenericModal() {
   const { isOpen, config, closeModal } = useModalStore();
 
-  if (!config) return null;
-
-  const handleSecondaryAction = () => {
-    if (config.secondaryAction) {
+  const handleSecondaryAction = useCallback(() => {
+    if (config?.secondaryAction) {
       config.secondaryAction();
     } else {
       closeModal();
     }
-  };
+  }, [config, closeModal]);
+
+  // Handle escape key
+  useEffect(() => {
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === "Escape" && isOpen) {
+        handleSecondaryAction();
+      }
+    };
+
+    if (isOpen) {
+      document.addEventListener("keydown", handleEscape);
+      document.body.style.overflow = "hidden";
+    }
+
+    return () => {
+      document.removeEventListener("keydown", handleEscape);
+      document.body.style.overflow = "unset";
+    };
+  }, [isOpen, handleSecondaryAction]);
+
+  if (!config || !isOpen) return null;
 
   const handlePrimaryAction = () => {
     config.action();
     closeModal();
   };
 
+  const getSizeClass = (size?: string) => {
+    switch (size) {
+      case "sm":
+        return "sm:max-w-sm";
+      case "md":
+        return "sm:max-w-md";
+      case "lg":
+        return "sm:max-w-lg";
+      case "xl":
+        return "sm:max-w-2xl";
+      default:
+        return "sm:max-w-md";
+    }
+  };
+
+  const handleBackdropClick = (e: React.MouseEvent) => {
+    if (e.target === e.currentTarget) {
+      handleSecondaryAction();
+    }
+  };
+
   return (
-    <AnimatePresence>
-      {isOpen && (
-        <Dialog
-          open={isOpen}
-          onOpenChange={(open) => !open && handleSecondaryAction()}
+    <div className="fixed inset-0 z-50">
+      {/* Modal Container with backdrop click */}
+      <div
+        className="fixed inset-0 flex items-center justify-center bg-black/50 p-2 sm:p-4"
+        onClick={handleBackdropClick}
+      >
+        <div
+          className={cn(
+            "animate-in fade-in-0 zoom-in-95 slide-in-from-bottom-4 relative max-h-[95vh] min-h-0 w-full overflow-hidden rounded-lg border bg-white p-0 py-4 shadow-lg duration-300 ease-out sm:max-h-[90vh] sm:py-8",
+            getSizeClass(config.size),
+            config.className,
+          )}
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="modal-title"
+          onClick={(e) => e.stopPropagation()}
         >
-          <DialogContent
-            showCloseButton={false}
-            className="overflow-hidden border p-0 py-8 sm:max-w-md"
-          >
-            <motion.div
-              initial={{
-                opacity: 0,
-                scale: 0.8,
-                y: 20,
-                rotateX: -15,
-              }}
-              animate={{
-                opacity: 1,
-                scale: 1,
-                y: 0,
-                rotateX: 0,
-              }}
-              exit={{
-                opacity: 0,
-                scale: 0.9,
-                y: -10,
-                rotateX: 10,
-              }}
-              transition={{
-                type: "spring",
-                duration: 0.5,
-                bounce: 0.3,
-                stiffness: 300,
-                damping: 25,
-              }}
-              className="p-6"
-            >
-              <DialogHeader>
-                <motion.div
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.1, duration: 0.3 }}
-                >
-                  <DialogTitle className="font-sora text-center text-xl font-semibold">
+          <div className="flex h-full max-h-[calc(95vh-2rem)] min-h-0 w-full flex-col sm:max-h-[calc(90vh-4rem)]">
+            {/* Fixed Header */}
+            <div className="flex-shrink-0 px-4 pb-4 sm:px-6">
+              <div className="flex flex-col gap-2 text-center sm:text-left">
+                <div>
+                  <h2
+                    id="modal-title"
+                    className={cn(
+                      "font-sora text-lg leading-none font-semibold",
+                      config.modalTitleClassName,
+                    )}
+                  >
                     {config.modalTitle}
-                  </DialogTitle>
-                </motion.div>
-                <motion.div
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.2, duration: 0.3 }}
-                >
-                  <DialogDescription className="font-sora mt-2 text-center leading-7 text-gray-600">
+                  </h2>
+                </div>
+              </div>
+            </div>
+
+            {/* Scrollable Content */}
+            <div className="hidden-scrollbar flex-1 touch-pan-y overflow-y-auto overscroll-contain px-4 sm:px-6">
+              <div className="pb-2">
+                {config.isCustomContent ? (
+                  <div className="flex w-full justify-center">
                     {config.bodyContent}
-                  </DialogDescription>
-                </motion.div>
-              </DialogHeader>
-              <motion.div
-                initial={{ opacity: 0, y: 15 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3, duration: 0.3 }}
-              >
-                <DialogFooter className="font-sora mt-4 flex flex-row gap-3">
-                  <Button
-                    variant="outline"
-                    onClick={handleSecondaryAction}
-                    className="hover:text-primary flex-1 hover:bg-white"
-                  >
-                    {config.secondaryActionTitle || "Cancel"}
-                  </Button>
-                  <Button
-                    onClick={handlePrimaryAction}
-                    className="bg-primary hover:bg-primary-700 flex-1 text-white"
-                  >
-                    {config.actionTitle}
-                  </Button>
-                </DialogFooter>
-              </motion.div>
-            </motion.div>
-          </DialogContent>
-        </Dialog>
-      )}
-    </AnimatePresence>
+                  </div>
+                ) : (
+                  <div className="font-sora text-center text-sm leading-7 text-gray-600">
+                    {config.bodyContent}
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* Fixed Footer */}
+            {!config.isCustomContent && (
+              <div className="flex-shrink-0 px-4 pt-4 sm:px-6">
+                <div>
+                  <div className="font-sora flex flex-row gap-3">
+                    <Button
+                      variant="outline"
+                      onClick={handleSecondaryAction}
+                      className={cn(
+                        config.isDestructive &&
+                          "text-text-color border-gray-400",
+                        "hover:text-primary flex-1 hover:bg-white",
+                      )}
+                    >
+                      {config.secondaryActionTitle || "Cancel"}
+                    </Button>
+                    <Button
+                      onClick={handlePrimaryAction}
+                      className={cn(
+                        "flex-1 text-white",
+                        config.isDestructive
+                          ? "bg-red-600 hover:bg-red-700"
+                          : "bg-primary hover:bg-primary-700",
+                      )}
+                    >
+                      {config.actionTitle}
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }

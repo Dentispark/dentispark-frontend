@@ -6,6 +6,8 @@ import { DashboardSidebarProps } from "./types";
 import { useLogout } from "@/src/hooks/use-logout";
 import { cn } from "@/src/lib/utils";
 
+import { useAuth } from "@/src/providers/auth-provider";
+
 export default function DashboardSidebar({
   isOpen,
   onClose,
@@ -13,6 +15,8 @@ export default function DashboardSidebar({
   currentPath,
 }: DashboardSidebarProps) {
   const { showLogoutModal } = useLogout();
+
+  const { user, isPremium } = useAuth();
 
   return (
     <aside
@@ -22,32 +26,39 @@ export default function DashboardSidebar({
       )}
     >
       <div className="flex h-full flex-col">
-        {/* Mobile profile section */}
         <div className="border-greys-300 flex items-center justify-between p-4 lg:hidden">
           <div className="flex items-center space-x-3">
             <div className="bg-primary-100 flex h-10 w-10 items-center justify-center rounded-full">
-              <Image
-                src="/images/profile.png"
-                alt="Profile"
-                width={40}
-                height={40}
-                className="h-10 w-10 rounded-full object-cover"
-                onError={(e) => {
-                  e.currentTarget.style.display = "none";
-                  const nextElement = e.currentTarget
-                    .nextElementSibling as HTMLElement;
-                  if (nextElement) {
-                    nextElement.style.display = "flex";
-                  }
-                }}
-              />
-              <div className="bg-primary-100 text-primary-700 hidden h-10 w-10 items-center justify-center rounded-full text-sm font-medium">
-                JD
-              </div>
+              {user?.profilePicture ? (
+                <Image
+                  src={user?.profilePicture}
+                  alt="Profile"
+                  width={40}
+                  height={40}
+                  className="h-10 w-10 rounded-full object-cover"
+                  onError={(e) => {
+                    e.currentTarget.style.display = "none";
+                    const nextElement = e.currentTarget
+                      .nextElementSibling as HTMLElement;
+                    if (nextElement) {
+                      nextElement.style.display = "flex";
+                    }
+                  }}
+                />
+              ) : (
+                <div className="bg-primary font-sora flex size-10 items-center justify-center rounded-full font-medium text-white">
+                  {user?.fullName
+                    .split(" ")
+                    .map((name) => name[0])
+                    .join("")}
+                </div>
+              )}
             </div>
             <div>
-              <p className="text-black-700 text-sm font-medium">John Doe</p>
-              <p className="text-black-500 text-xs">johndoe@gmail.com</p>
+              <p className="text-black-700 text-sm font-medium">
+                {user?.fullName}
+              </p>
+              <p className="text-black-500 text-xs">{user?.emailAddress}</p>
             </div>
           </div>
           <button onClick={onClose}>
@@ -129,6 +140,41 @@ export default function DashboardSidebar({
             <span className="text-error-600">Logout</span>
           </button>
         </nav>
+
+        {/* Premium Upgrade UI - Only show if user is not premium */}
+        {!isPremium && (
+          <div className="p-4">
+            <div className="bg-primary-100 rounded-2xl p-4">
+              {/* Premium Badge */}
+              <div className="mb-3 flex items-start gap-4">
+                <Image
+                  src="/images/premium-badge.png"
+                  alt="Premium Badge"
+                  width={1000}
+                  height={1000}
+                  className="w-16 object-cover"
+                />
+
+                <div>
+                  <h3 className="text-primary text-xl font-semibold">
+                    Premium Plan
+                  </h3>
+
+                  <p className="text-text-color font-sora mb-4 text-base leading-relaxed">
+                    Need More?
+                    <br />
+                    Upgrade for 1:1 Mentorship and More
+                  </p>
+                </div>
+              </div>
+
+              {/* CTA Button */}
+              <button className="bg-primary hover:bg-primary-400 w-full rounded-md px-4 py-3 text-sm font-medium text-white transition-colors duration-200">
+                Try Premium for 14 days
+              </button>
+            </div>
+          </div>
+        )}
       </div>
     </aside>
   );

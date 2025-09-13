@@ -27,7 +27,7 @@ import {
 import {
   useVerifyEmail,
   useResendCode,
-} from "@/src/features/(auth)/verify-email/services/mutations";
+} from "@/src/features/(auth)/services/mutation";
 import { useRouter } from "next/navigation";
 
 const verifyEmailSchema = z.object({
@@ -70,8 +70,8 @@ export default function VerifyEmailPage({
   const onSubmit = async (data: VerifyEmailFormData) => {
     try {
       await verifyEmailMutation.mutateAsync({
-        email,
-        code: data.code,
+        emailAddress: email,
+        verificationCode: data.code,
       });
       console.log("code", data.code);
       router.push("/new-password");
@@ -84,7 +84,7 @@ export default function VerifyEmailPage({
 
   const handleResendCode = async () => {
     try {
-      await resendCodeMutation.mutateAsync({ email });
+      await resendCodeMutation.mutateAsync({ emailAddress: email });
       setTimeLeft(59);
       toast.success("Verification code sent successfully!");
     } catch (error) {

@@ -4,6 +4,7 @@ import { ReactQueryProvider } from "@/src/lib/react-query";
 import { Toaster } from "sonner";
 import genralSans from "@/src/lib/font";
 import { ModalProvider } from "@/src/components/ui/modal-provider";
+import { AuthProvider } from "@/src/providers/auth-provider";
 
 export const metadata: Metadata = {
   title: "Dentispark - Dental School Guidance & Mentorship",
@@ -31,8 +32,17 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={genralSans.className}>
+      <head>
+        <script
+          src="https://accounts.google.com/gsi/client"
+          async
+          defer
+        ></script>
+      </head>
       <body suppressHydrationWarning={true}>
-        <ReactQueryProvider>{children}</ReactQueryProvider>
+        <ReactQueryProvider>
+          <AuthProvider>{children}</AuthProvider>
+        </ReactQueryProvider>
         <ModalProvider />
         <Toaster richColors />
       </body>

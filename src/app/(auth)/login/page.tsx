@@ -1,12 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { Eye, EyeOff, Mail, Lock } from "lucide-react";
+import { Eye, EyeOff, Mail, Lock, Loader2 } from "lucide-react";
 
 import Logo from "@/src/components/icons/Logo";
 import { Button } from "@/src/components/ui/button";
@@ -19,10 +19,11 @@ import {
   FormLabel,
   FormMessage,
 } from "@/src/components/ui/form";
+import { useLogin } from "@/src/features/(auth)/services";
 
 // Form validation schema
 const loginSchema = z.object({
-  email: z.string().email("Please enter a valid email address"),
+  emailAddress: z.string().email("Please enter a valid email address"),
   password: z.string().min(6, "Password must be at least 6 characters"),
 });
 
@@ -30,38 +31,28 @@ type LoginFormData = z.infer<typeof loginSchema>;
 
 export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isPending, startTransition] = useTransition();
+  const loginMutation = useLogin();
 
   const form = useForm<LoginFormData>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
-      email: "",
+      emailAddress: "",
       password: "",
     },
   });
 
   const onSubmit = async (data: LoginFormData) => {
-    setIsLoading(true);
-
-    try {
-      // TODO: Replace with actual API call
-      console.log("Login form data:", data);
-
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 2000));
-
-      // Handle successful login
-      console.log("Login successful");
-    } catch (error) {
-      console.error("Login error:", error);
-    } finally {
-      setIsLoading(false);
-    }
+    startTransition(() => {
+      loginMutation.mutate(data);
+    });
   };
 
   const handleSocialLogin = (provider: string) => {
-    // TODO: Implement social login
-    console.log(`Login with ${provider}`);
+    startTransition(() => {
+      // TODO: Implement social login
+      console.log(`Login with ${provider}`);
+    });
   };
 
   const containerVariants = {
@@ -121,6 +112,7 @@ export default function LoginPage() {
             type="button"
             className="border-greys-300 text-black-700 font-sora flex w-full items-center justify-center border bg-white py-5 text-xs"
             onClick={() => handleSocialLogin("google")}
+            disabled={isPending || loginMutation.isPending}
           >
             <svg className="mr-3 size-6" viewBox="0 0 24 24">
               <path
@@ -147,6 +139,7 @@ export default function LoginPage() {
             type="button"
             className="border-greys-300 text-black-700 font-sora flex w-full items-center justify-center border bg-white py-5 text-xs"
             onClick={() => handleSocialLogin("linkedin")}
+            disabled={isPending || loginMutation.isPending}
           >
             <svg className="mr-3 size-5" fill="#0A66C2" viewBox="0 0 24 24">
               <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
@@ -172,7 +165,7 @@ export default function LoginPage() {
               <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                 <FormField
                   control={form.control}
-                  name="email"
+                  name="emailAddress"
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Email Address</FormLabel>
@@ -183,7 +176,8 @@ export default function LoginPage() {
                             type="email"
                             placeholder="Enter your email address"
                             className="h-12 pl-10"
-                            aria-invalid={!!form.formState.errors.email}
+                            aria-invalid={!!form.formState.errors.emailAddress}
+                            disabled={isPending || loginMutation.isPending}
                             {...field}
                           />
                         </div>
@@ -207,12 +201,14 @@ export default function LoginPage() {
                             placeholder="Enter your password"
                             className="h-12 pr-10 pl-10"
                             aria-invalid={!!form.formState.errors.password}
+                            disabled={isPending || loginMutation.isPending}
                             {...field}
                           />
                           <button
                             type="button"
-                            className="absolute inset-y-0 right-0 flex cursor-pointer items-center pr-3"
+                            className="absolute inset-y-0 right-0 flex cursor-pointer items-center pr-3 disabled:cursor-not-allowed disabled:opacity-50"
                             onClick={() => setShowPassword(!showPassword)}
+                            disabled={isPending || loginMutation.isPending}
                           >
                             {showPassword ? (
                               <EyeOff className="h-4 w-4 text-gray-400" />
@@ -240,9 +236,16 @@ export default function LoginPage() {
               <Button
                 type="submit"
                 className="w-full py-5 text-sm font-medium"
-                disabled={isLoading}
+                disabled={isPending || loginMutation.isPending}
               >
-                {isLoading ? "Logging in..." : "Log in"}
+                {isPending || loginMutation.isPending ? (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    Logging in...
+                  </>
+                ) : (
+                  "Log in"
+                )}
               </Button>
             </form>
           </Form>
