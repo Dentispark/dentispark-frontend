@@ -9,9 +9,11 @@ export interface ModalConfig {
   actionTitle: string;
   secondaryAction?: () => void;
   secondaryActionTitle?: string;
+  className?: string;
   type: string;
   size?: "sm" | "md" | "lg" | "xl";
   isCustomContent?: boolean; // Flag to indicate if content should not be wrapped in DialogDescription
+  isDestructive?: boolean; // Flag to indicate if primary action is destructive (red button)
 }
 
 interface ModalStore {
@@ -21,9 +23,20 @@ interface ModalStore {
   closeModal: () => void;
 }
 
-export const useModalStore = create<ModalStore>((set) => ({
+export const useModalStore = create<ModalStore>((set, get) => ({
   isOpen: false,
   config: null,
-  openModal: (config) => set({ isOpen: true, config }),
+  openModal: (config) => {
+    const currentState = get();
+    // Prevent opening the same modal if it's already open
+    if (
+      currentState.isOpen &&
+      currentState.config?.type === config.type &&
+      currentState.config?.modalTitle === config.modalTitle
+    ) {
+      return;
+    }
+    set({ isOpen: true, config });
+  },
   closeModal: () => set({ isOpen: false, config: null }),
 }));
