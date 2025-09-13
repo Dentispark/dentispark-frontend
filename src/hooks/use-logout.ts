@@ -1,19 +1,15 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import { useModal } from "./use-modal";
+import { useAuth } from "@/src/providers/auth-provider";
 
 export function useLogout() {
-  const router = useRouter();
   const { showModal } = useModal();
+  const { logout: authLogout } = useAuth();
 
   const logout = () => {
-    // Clear authentication data
-    localStorage.removeItem("authToken");
-    sessionStorage.clear();
-
-    // Redirect to login page
-    router.push("/login");
+    // Use AuthProvider's logout method which handles everything
+    authLogout();
   };
 
   const showLogoutModal = () => {
