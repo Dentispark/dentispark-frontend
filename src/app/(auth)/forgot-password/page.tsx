@@ -20,7 +20,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/src/components/ui/form";
-import { useForgotPassword } from "@/src/features/(auth)/forgot-password/services/mutations";
+import { useForgotPassword } from "@/src/features/(auth)/services/mutation";
 
 // Form validation schema
 const forgotPasswordSchema = z.object({
@@ -43,7 +43,9 @@ export default function ForgotPasswordPage() {
   const onSubmit = async (data: ForgotPasswordFormData) => {
     //TODO: Add a delay before redirecting to verify-email page
     try {
-      await forgotPasswordMutation.mutateAsync(data);
+      await forgotPasswordMutation.mutateAsync({
+        emailAddress: data.email,
+      });
 
       router.push(`/verify-email?email=${encodeURIComponent(data.email)}`);
       toast.success("Verification code sent successfully!");

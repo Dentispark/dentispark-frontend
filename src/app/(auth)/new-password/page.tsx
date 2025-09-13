@@ -21,7 +21,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/src/components/ui/form";
-import { useResetPassword } from "@/src/features/(auth)/new-password/services/mutations";
+import { useResetPassword } from "@/src/features/(auth)/services/mutation";
 
 // Form validation schema
 const newPasswordSchema = z
@@ -72,9 +72,10 @@ export default function NewPasswordPage({
   const onSubmit = async (data: NewPasswordFormData) => {
     try {
       await resetPasswordMutation.mutateAsync({
-        email,
+        emailAddress: email,
         token,
         password: data.password,
+        passwordConfirmation: data.confirmPassword,
       });
       setIsComplete(true);
       toast.success("Password reset successfully!");
