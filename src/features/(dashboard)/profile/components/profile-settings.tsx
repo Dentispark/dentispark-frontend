@@ -1,9 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Edit, Mail, User } from "lucide-react";
+import { Edit, Loader2, Mail, User } from "lucide-react";
 import { toast } from "sonner";
 
 import { Button } from "@/src/components/ui/button";
@@ -19,8 +19,8 @@ import {
 } from "@/src/components/ui/form";
 
 import { profileSchema, type ProfileFormData } from "../types";
-import { defaultProfileData } from "../constants";
-import { profileApi } from "../services";
+import { useAuth } from "@/src/providers/auth-provider";
+import { useUpdateStudentProfileMutation } from "../services";
 
 interface ProfileSettingsProps {
   initialData?: Partial<ProfileFormData>;
@@ -28,6 +28,18 @@ interface ProfileSettingsProps {
 
 export function ProfileSettings({ initialData }: ProfileSettingsProps) {
   const [isEditing, setIsEditing] = useState(false);
+
+  const { user, isPremium } = useAuth();
+
+  console.log("user", user);
+
+  const defaultProfileData = {
+    fullName: user?.fullName || "",
+    emailAddress: user?.emailAddress || "",
+    phoneNumber: user?.mobileNumber || "",
+    biography: user?.biography || "",
+    linkedinUrl: user?.linkedinUrl || "",
+  };
 
   const form = useForm<ProfileFormData>({
     resolver: zodResolver(profileSchema),
@@ -37,13 +49,45 @@ export function ProfileSettings({ initialData }: ProfileSettingsProps) {
     },
   });
 
+  // Keep form values in sync with latest user data
+  useEffect(() => {
+    form.reset({
+      fullName: user?.fullName || "",
+      emailAddress: user?.emailAddress || "",
+      phoneNumber: user?.mobileNumber || "",
+      biography: user?.biography || "",
+      linkedinUrl: user?.linkedinUrl,
+      ...initialData,
+    });
+  }, [
+    form,
+    user?.fullName,
+    user?.emailAddress,
+    user?.mobileNumber,
+    user?.biography,
+    user?.linkedinUrl,
+    initialData,
+  ]);
+
+  const updateProfileMutation = useUpdateStudentProfileMutation();
+
   const onSubmit = async (data: ProfileFormData) => {
     try {
-      await profileApi.updateProfile(data);
+      await updateProfileMutation.mutateAsync({
+        fullName: data.fullName,
+        mobileNumber: data.phoneNumber,
+        biography: data.biography,
+        linkedinUrl: data.linkedinUrl,
+        // Optional fields when you wire them up in the UI
+        // profilePicture: undefined,
+        // linkedinProfileUrl: undefined,
+      });
       setIsEditing(false);
-      toast.success("Profile updated successfully!");
-    } catch {
-      toast.error("Failed to update profile. Please try again.");
+    } catch (error) {
+      const message =
+        (error as Error)?.message ||
+        "Failed to update profile. Please try again.";
+      toast.error(message);
     }
   };
 
@@ -102,11 +146,15 @@ export function ProfileSettings({ initialData }: ProfileSettingsProps) {
                 <h3 className="text-2xl font-bold text-gray-900 md:text-3xl">
                   {form.watch("fullName")}
                 </h3>
-                <span className="bg-primary-100 border-primary-300 text-primary rounded-full border px-2 py-1 text-xs font-medium">
-                  Premium
-                </span>
+                {isPremium && (
+                  <span className="bg-primary-100 border-primary-300 text-primary rounded-full border px-2 py-1 text-xs font-medium">
+                    Premium
+                  </span>
+                )}
               </div>
-              <p className="text-black-500 font-sora">{form.watch("email")}</p>
+              <p className="text-black-500 font-sora">
+                {form.watch("emailAddress")}
+              </p>
             </div>
           </div>
 
@@ -121,7 +169,6 @@ export function ProfileSettings({ initialData }: ProfileSettingsProps) {
           </Button>
         </div>
 
-        {/* Profile Form */}
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
@@ -138,11 +185,7 @@ export function ProfileSettings({ initialData }: ProfileSettingsProps) {
                     </FormLabel>
                     <div className="w-full">
                       <FormControl>
-                        <Input
-                          {...field}
-                          disabled={!isEditing}
-                          className="h-12"
-                        />
+                        <Input {...field} disabled={true} className="h-12" />
                       </FormControl>
                       <FormMessage />
                     </div>
@@ -152,7 +195,7 @@ export function ProfileSettings({ initialData }: ProfileSettingsProps) {
 
               <FormField
                 control={form.control}
-                name="email"
+                name="emailAddress"
                 render={({ field }) => (
                   <FormItem className="flex flex-col md:flex-row md:items-center">
                     <FormLabel className="mb-2 text-sm font-medium text-gray-700 md:mb-0 md:basis-2/4">
@@ -165,7 +208,7 @@ export function ProfileSettings({ initialData }: ProfileSettingsProps) {
                           <Input
                             {...field}
                             type="email"
-                            disabled={!isEditing}
+                            disabled={true}
                             className="h-12 pl-10"
                           />
                         </div>
@@ -210,16 +253,18 @@ export function ProfileSettings({ initialData }: ProfileSettingsProps) {
                 render={({ field }) => (
                   <FormItem className="flex flex-col md:flex-row md:items-center">
                     <FormLabel className="mb-2 text-sm font-medium text-gray-700 md:mb-0 md:basis-2/4">
-                      LinkedIn Profile URL
+                      Linkedin Url
                     </FormLabel>
                     <div className="w-full">
                       <FormControl>
-                        <Input
-                          {...field}
-                          placeholder="Add your LinkedIn profile URL"
-                          disabled={!isEditing}
-                          className="h-12"
-                        />
+                        <div className="flex w-full">
+                          <Input
+                            {...field}
+                            placeholder="Enter your Linkedin url"
+                            disabled={!isEditing}
+                            className="h-12 rounded-l-none pl-3"
+                          />
+                        </div>
                       </FormControl>
                       <FormMessage />
                     </div>
@@ -264,11 +309,16 @@ export function ProfileSettings({ initialData }: ProfileSettingsProps) {
             Cancel
           </Button>
           <Button
-            type="submit"
+            type="button"
             className="h-9 px-12"
             disabled={form.formState.isSubmitting}
+            onClick={form.handleSubmit(onSubmit)}
           >
-            {form.formState.isSubmitting ? "Saving..." : "Save"}
+            {form.formState.isSubmitting ? (
+              <Loader2 className="h-4 w-4 animate-spin" />
+            ) : (
+              "Save"
+            )}
           </Button>
         </div>
       )}

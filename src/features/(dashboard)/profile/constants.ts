@@ -19,15 +19,6 @@ export const gcseOptions: SelectOption[] = [
   { value: "C", label: "C" },
 ];
 
-export const defaultProfileData = {
-  fullName: "John Doe",
-  email: "johndoe@dentispark.co.uk",
-  phoneNumber: "",
-  linkedinUrl: "",
-  biography:
-    "Hi there! 👋 I'm John Doe, an AI enthusiast and fitness aficionado. When I'm not crunching numbers or optimizing algorithms, you can find me hitting the gym.",
-};
-
 export const defaultAcademicData = {
   yearOfStudy: "year-12",
   gcseResult: "7",

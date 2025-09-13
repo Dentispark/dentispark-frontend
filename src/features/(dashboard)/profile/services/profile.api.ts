@@ -1,53 +1,39 @@
-import type { ProfileFormData, AcademicFormData } from "../types";
+import { BaseAPI } from "@/src/connection/base-api";
+import type { AcademicProfile } from "@/src/connection/api-types";
 
-// Mock API functions - replace with real API calls
-export const profileApi = {
-  updateProfile: async (data: ProfileFormData): Promise<ProfileFormData> => {
-    // Simulate API delay
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+export interface UpdateStudentProfileRequest {
+  fullName?: string;
+  mobileNumber?: string;
+  profilePicture?: string;
+  linkedinUrl?: string;
+  biography?: string;
+}
 
-    // Mock successful response
-    return data;
-  },
+export interface StudentProfileData {
+  fullName: string;
+  emailAddress: string;
+  mobileNumber?: string;
+  profilePicture?: string;
+  linkedinProfileUrl?: string;
+  biography?: string;
+}
 
-  updateAcademicProfile: async (
-    data: AcademicFormData,
-  ): Promise<AcademicFormData> => {
-    // Simulate API delay
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+class ProfileAPIService extends BaseAPI {
+  constructor() {
+    super();
+  }
 
-    // Mock successful response
-    return data;
-  },
+  async GETACADEMICPROFILE(): Promise<AcademicProfile> {
+    return this.get<AcademicProfile>("/student/academic-profile");
+  }
 
-  getProfile: async (): Promise<ProfileFormData> => {
-    // Simulate API delay
-    await new Promise((resolve) => setTimeout(resolve, 500));
+  async UPDATESTUDENTPROFILE(
+    payload: UpdateStudentProfileRequest,
+  ): Promise<StudentProfileData> {
+    return this.patch<StudentProfileData>("/student/profile", payload);
+  }
+}
 
-    // Mock profile data
-    return {
-      fullName: "John Doe",
-      email: "johndoe@dentispark.co.uk",
-      phoneNumber: "",
-      linkedinUrl: "",
-      biography:
-        "Hi there! 👋 I'm John Doe, an AI enthusiast and fitness aficionado. When I'm not crunching numbers or optimizing algorithms, you can find me hitting the gym.",
-    };
-  },
+const profileAPIService = new ProfileAPIService();
 
-  getAcademicProfile: async (): Promise<AcademicFormData> => {
-    // Simulate API delay
-    await new Promise((resolve) => setTimeout(resolve, 500));
-
-    // Mock academic data
-    return {
-      yearOfStudy: "year-12",
-      gcseResult: "7-9",
-      ucatScore: "Unavailable",
-      biologyGrade: "A",
-      chemistryGrade: "B",
-      otherSubject: "Mathematics",
-      otherSubjectGrade: "A",
-    };
-  },
-};
+export { profileAPIService };

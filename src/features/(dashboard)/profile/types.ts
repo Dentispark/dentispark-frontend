@@ -3,13 +3,9 @@ import * as z from "zod";
 // Form validation schemas
 export const profileSchema = z.object({
   fullName: z.string().min(2, "Full name must be at least 2 characters"),
-  email: z.string().email("Please enter a valid email address"),
+  emailAddress: z.string().email("Please enter a valid email address"),
   phoneNumber: z.string().optional(),
-  linkedinUrl: z
-    .string()
-    .url("Please enter a valid LinkedIn URL")
-    .optional()
-    .or(z.literal("")),
+  linkedinUrl: z.string().optional(),
   biography: z.string().optional(),
 });
 
@@ -49,4 +45,15 @@ export interface AcademicData {
   chemistryGrade: string;
   otherSubject?: string;
   otherSubjectGrade?: string;
+}
+
+// API Response types
+export interface AcademicProfileResponse {
+  yearOfStudy: string;
+  gcseResult: string;
+  casperScore: string;
+  aLevelGrades: Array<{
+    subject: string;
+    grade: string;
+  }>;
 }

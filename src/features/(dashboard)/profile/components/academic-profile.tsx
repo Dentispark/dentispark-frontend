@@ -1,14 +1,20 @@
 "use client";
 
 import { useState } from "react";
-import { Edit } from "lucide-react";
+import { Edit, Loader2 } from "lucide-react";
 
 import { Button } from "@/src/components/ui/button";
-import { useModal } from "@/src/hooks/use-modal";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/src/components/ui/dialog";
 
 import { type AcademicFormData } from "../types";
 import { defaultAcademicData } from "../constants";
 import { AcademicProfileModal } from "./academic-profile-modal";
+import { useAcademicProfileQuery } from "../services";
 
 interface AcademicProfileProps {
   initialData?: Partial<AcademicFormData>;
@@ -22,33 +28,93 @@ type AcademicProfileData = AcademicFormData & {
 };
 
 export function AcademicProfile({ initialData }: AcademicProfileProps) {
-  const [data, setData] = useState<AcademicProfileData>({
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  // Fetch academic profile data
+  const {
+    data: academicProfileData,
+    isLoading,
+    error,
+    refetch,
+  } = useAcademicProfileQuery();
+
+  const data: AcademicProfileData = {
     ...defaultAcademicData,
     courseOfInterest: "dental-science",
     ...initialData,
-  });
-  const { showModal, hideModal } = useModal();
+    ...(academicProfileData && {
+      yearOfStudy: academicProfileData.yearOfStudy,
+      gcseResult: academicProfileData.gcseResult,
+      ucatScore: academicProfileData.casperScore || "",
+      biologyGrade:
+        academicProfileData?.aLevelGrades?.find(
+          (grade) => grade.subject.toLowerCase() === "biology",
+        )?.grade || "",
+      chemistryGrade:
+        academicProfileData?.aLevelGrades?.find(
+          (grade) => grade.subject.toLowerCase() === "chemistry",
+        )?.grade || "",
+      otherSubject:
+        academicProfileData?.aLevelGrades?.find(
+          (grade) =>
+            !["biology", "chemistry"].includes(grade.subject.toLowerCase()),
+        )?.subject || "",
+      otherSubjectGrade:
+        academicProfileData?.aLevelGrades?.find(
+          (grade) =>
+            !["biology", "chemistry"].includes(grade.subject.toLowerCase()),
+        )?.grade || "",
+    }),
+  };
 
   const handleEditClick = () => {
-    showModal({
-      modalTitle: "Update Academic Profile",
-      bodyContent: (
-        <AcademicProfileModal
-          initialData={data}
-          onSubmit={(formData) => {
-            setData(formData);
-            hideModal();
-          }}
-          onCancel={hideModal}
-        />
-      ),
-      action: () => {},
-      actionTitle: "",
-      type: "academic-profile",
-      size: "xl",
-      isCustomContent: true, // This prevents wrapping in DialogDescription
-    });
+    setIsModalOpen(true);
   };
+
+  const handleModalClose = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleSubmit = () => {
+    setIsModalOpen(false);
+  };
+
+  // Show loading state
+  if (isLoading) {
+    return (
+      <div className="mx-auto max-w-4xl bg-white pb-16">
+        <div className="flex items-center justify-center p-8">
+          <Loader2 className="text-primary h-8 w-8 animate-spin" />
+          <span className="ml-2 text-gray-600">
+            Loading academic profile...
+          </span>
+        </div>
+      </div>
+    );
+  }
+
+  // Show error state
+  if (error) {
+    return (
+      <div className="mx-auto max-w-4xl bg-white pb-16">
+        <div className="p-6">
+          <div className="rounded-md bg-red-50 p-4">
+            <div className="text-sm text-red-700">
+              Failed to load academic profile: {error.message}
+            </div>
+            <Button
+              onClick={() => refetch()}
+              className="mt-2"
+              size="sm"
+              variant="outline"
+            >
+              Try Again
+            </Button>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="mx-auto max-w-4xl bg-white pb-16">
@@ -141,6 +207,26 @@ export function AcademicProfile({ initialData }: AcademicProfileProps) {
           </div>
         </div>
       </div>
+
+      {/* Custom Modal */}
+      <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
+        <DialogContent className="mx-auto max-h-[95vh] max-w-2xl overflow-hidden p-0 sm:max-h-[90vh]">
+          <div className="flex h-full max-h-[calc(95vh-2rem)] flex-col sm:max-h-[calc(90vh-4rem)]">
+            <DialogHeader className="flex-shrink-0 border-b px-4 py-4 sm:px-6">
+              <DialogTitle className="text-lg font-semibold">
+                Update Academic Profile
+              </DialogTitle>
+            </DialogHeader>
+            <div className="hidden-scrollbar flex-1 touch-pan-y overflow-y-auto overscroll-contain px-4 py-4 sm:px-6">
+              <AcademicProfileModal
+                initialData={data}
+                onSubmit={handleSubmit}
+                onCancel={handleModalClose}
+              />
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
