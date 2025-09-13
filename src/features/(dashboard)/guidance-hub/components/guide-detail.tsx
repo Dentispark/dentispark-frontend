@@ -97,14 +97,12 @@ export default function GuideDetail({ className }: GuideDetailProps) {
             transition={{ duration: 0.6 }}
             className="mx-auto"
           >
-            {/* Content Section */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.4 }}
               className="grid gap-24 lg:grid-cols-6"
             >
-              {/* Table of Contents - Left Sidebar */}
               <div className="lg:col-span-2">
                 <div className="sticky top-20 space-y-6 rounded-2xl border p-6">
                   {/* Table of Contents */}

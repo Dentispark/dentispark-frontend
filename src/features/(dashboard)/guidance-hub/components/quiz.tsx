@@ -176,7 +176,7 @@ export default function Quiz({ className }: QuizProps) {
         secondaryActionTitle: "Cancel",
       });
     },
-    [showModal, setQuizStarted, setIsInitialized, hideModal, router],
+    [showModal, hideModal, router],
   );
 
   // Show modal on component mount and section changes
