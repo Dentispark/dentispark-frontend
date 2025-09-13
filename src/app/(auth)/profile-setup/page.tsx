@@ -5,8 +5,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { useRouter } from "next/navigation";
-import { toast } from "sonner";
 
 import Logo from "@/src/components/icons/Logo";
 import { Button } from "@/src/components/ui/button";
@@ -26,68 +24,88 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/src/components/ui/select";
-import { useProfileSetup } from "@/src/features/(auth)/profile-setup/services/mutations";
-// Form validation schema
+import { authCookies } from "@/src/lib/cookies";
+import { useProfileSetup } from "@/src/features/(auth)/services/mutation";
+// Form validation schema - updated to match API requirements
 const profileSetupSchema = z.object({
-  academicYear: z.string().min(1, "Please select your current academic year"),
-  targetDentalSchools: z
+  emailAddress: z
     .string()
-    .min(10, "Please provide at least 10 characters for your target schools"),
-  countryOfResidence: z.string().min(1, "Please select your country"),
-  ucatStatus: z.string().min(1, "Please select your UCAT status"),
+    .email("Please enter a valid email address")
+    .optional(),
+  academicYear: z.coerce.number().int().min(1).max(13).optional(),
+  targetSchools: z.array(z.string()).optional(),
+  county: z.string().optional(),
+  takenUCAT: z.boolean().optional(),
+  takenCasper: z.boolean().optional(),
+  category: z.enum(["DENTAL_HYGIENE", "BDS", "DENTAL_NURSING"]).optional(),
 });
 
 type ProfileSetupFormData = z.infer<typeof profileSetupSchema>;
 
 const academicYears = [
-  { value: "year-12", label: "Year 12" },
-  { value: "year-13", label: "Year 13" },
-  { value: "gap-year", label: "Gap Year" },
-  { value: "undergraduate", label: "Undergraduate" },
-  { value: "graduate", label: "Graduate" },
+  { value: 9, label: "Year 9" },
+  { value: 10, label: "Year 10" },
+  { value: 11, label: "Year 11" },
+  { value: 12, label: "Year 12" },
+  { value: 13, label: "Year 13" },
+];
+
+const counties = [
+  { value: "london", label: "London" },
+  { value: "manchester", label: "Manchester" },
+  { value: "birmingham", label: "Birmingham" },
+  { value: "glasgow", label: "Glasgow" },
+  { value: "edinburgh", label: "Edinburgh" },
+  { value: "cardiff", label: "Cardiff" },
+  { value: "bristol", label: "Bristol" },
+  { value: "leeds", label: "Leeds" },
+  { value: "liverpool", label: "Liverpool" },
   { value: "other", label: "Other" },
 ];
 
-const countries = [
-  { value: "uk", label: "United Kingdom" },
-  { value: "us", label: "United States" },
-  { value: "canada", label: "Canada" },
-  { value: "australia", label: "Australia" },
-  { value: "ireland", label: "Ireland" },
-  { value: "other", label: "Other" },
-];
-
-const ucatOptions = [
-  { value: "not-taken", label: "Not taken yet" },
-  { value: "scheduled", label: "Scheduled to take" },
-  { value: "completed", label: "Already completed" },
-  { value: "not-applicable", label: "Not applicable" },
+const categoryOptions = [
+  { value: "BDS", label: "Bachelor of Dental Surgery (BDS)" },
+  { value: "DENTAL_HYGIENE", label: "Dental Hygiene" },
+  { value: "DENTAL_NURSING", label: "Dental Nursing" },
 ];
 
 export default function ProfileSetupPage() {
-  const router = useRouter();
   const profileSetupMutation = useProfileSetup();
+  const user = authCookies.getUserData();
 
   const form = useForm<ProfileSetupFormData>({
     resolver: zodResolver(profileSetupSchema),
     defaultValues: {
-      academicYear: "",
-      targetDentalSchools: "",
-      countryOfResidence: "",
-      ucatStatus: "",
+      emailAddress: (user as { emailAddress?: string })?.emailAddress || "",
+      academicYear: undefined,
+      targetSchools: [],
+      county: "",
+      takenUCAT: false,
+      takenCasper: false,
+      category: undefined,
     },
   });
 
   const onSubmit = async (data: ProfileSetupFormData) => {
     try {
-      await profileSetupMutation.mutateAsync(data);
-      router.push("/dashboard");
-      toast.success("Profile setup completed successfully!");
+      // Filter out undefined values since all fields are optional
+      const filteredData = Object.fromEntries(
+        Object.entries(data).filter(
+          ([, value]) =>
+            value !== undefined &&
+            value !== "" &&
+            (Array.isArray(value) ? value.length > 0 : true),
+        ),
+      ) as ProfileSetupFormData;
+
+      await profileSetupMutation.mutateAsync(filteredData);
     } catch (error) {
       console.error("Profile setup error:", error);
-      toast.error("Failed to complete profile setup. Please try again.");
+      // Error handling is done in the mutation hook
     }
   };
+
+  console.log("user", user);
 
   const containerVariants = {
     hidden: { opacity: 0, y: 20 },
@@ -151,8 +169,8 @@ export default function ProfileSetupPage() {
                       Academic Year
                     </FormLabel>
                     <Select
-                      onValueChange={field.onChange}
-                      defaultValue={field.value}
+                      onValueChange={(value) => field.onChange(parseInt(value))}
+                      value={field.value?.toString()}
                     >
                       <FormControl>
                         <SelectTrigger className="h-12 w-full text-gray-500">
@@ -161,7 +179,10 @@ export default function ProfileSetupPage() {
                       </FormControl>
                       <SelectContent>
                         {academicYears.map((year) => (
-                          <SelectItem key={year.value} value={year.value}>
+                          <SelectItem
+                            key={year.value}
+                            value={year.value.toString()}
+                          >
                             {year.label}
                           </SelectItem>
                         ))}
@@ -172,23 +193,27 @@ export default function ProfileSetupPage() {
                 )}
               />
 
-              {/* Target Dental Schools */}
+              {/* Target Schools */}
               <FormField
                 control={form.control}
-                name="targetDentalSchools"
+                name="targetSchools"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel className="font-sora text-sm font-normal text-gray-700">
-                      What are your target dental schools
+                      Target Dental Schools
                     </FormLabel>
                     <FormControl>
                       <Input
-                        placeholder="Enter your target schools"
+                        placeholder="Enter your target dental schools (comma separated)"
                         className="h-12 text-gray-500 placeholder:text-gray-400"
-                        aria-invalid={
-                          !!form.formState.errors.targetDentalSchools
-                        }
-                        {...field}
+                        value={field.value?.join(", ") || ""}
+                        onChange={(e) => {
+                          const schools = e.target.value
+                            .split(",")
+                            .map((school) => school.trim())
+                            .filter((school) => school !== "");
+                          field.onChange(schools.length > 0 ? schools : []);
+                        }}
                       />
                     </FormControl>
                     <FormMessage />
@@ -196,14 +221,14 @@ export default function ProfileSetupPage() {
                 )}
               />
 
-              {/* Country of Residence */}
+              {/* County */}
               <FormField
                 control={form.control}
-                name="countryOfResidence"
+                name="county"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel className="font-sora text-sm font-normal text-gray-700">
-                      Country of residence
+                      County
                     </FormLabel>
                     <Select
                       onValueChange={field.onChange}
@@ -211,13 +236,47 @@ export default function ProfileSetupPage() {
                     >
                       <FormControl>
                         <SelectTrigger className="h-12 w-full text-gray-500">
-                          <SelectValue placeholder="Select your country" />
+                          <SelectValue placeholder="Select your county" />
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
-                        {countries.map((country) => (
-                          <SelectItem key={country.value} value={country.value}>
-                            {country.label}
+                        {counties.map((county) => (
+                          <SelectItem key={county.value} value={county.value}>
+                            {county.label}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              {/* Category */}
+              <FormField
+                control={form.control}
+                name="category"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="font-sora text-sm font-normal text-gray-700">
+                      Category
+                    </FormLabel>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
+                      <FormControl>
+                        <SelectTrigger className="h-12 w-full text-gray-500">
+                          <SelectValue placeholder="Select your category" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        {categoryOptions.map((category) => (
+                          <SelectItem
+                            key={category.value}
+                            value={category.value}
+                          >
+                            {category.label}
                           </SelectItem>
                         ))}
                       </SelectContent>
@@ -230,15 +289,15 @@ export default function ProfileSetupPage() {
               {/* UCAT Status */}
               <FormField
                 control={form.control}
-                name="ucatStatus"
+                name="takenUCAT"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel className="font-sora text-sm font-normal text-gray-700">
                       Have you taken the UCAT?
                     </FormLabel>
                     <Select
-                      onValueChange={field.onChange}
-                      defaultValue={field.value}
+                      onValueChange={(value) => field.onChange(value === "yes")}
+                      value={field.value ? "yes" : "no"}
                     >
                       <FormControl>
                         <SelectTrigger className="h-12 w-full text-gray-500">
@@ -246,11 +305,36 @@ export default function ProfileSetupPage() {
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
-                        {ucatOptions.map((option) => (
-                          <SelectItem key={option.value} value={option.value}>
-                            {option.label}
-                          </SelectItem>
-                        ))}
+                        <SelectItem value="yes">Yes</SelectItem>
+                        <SelectItem value="no">No</SelectItem>
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              {/* Casper Status */}
+              <FormField
+                control={form.control}
+                name="takenCasper"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="font-sora text-sm font-normal text-gray-700">
+                      Have you taken the Casper test?
+                    </FormLabel>
+                    <Select
+                      onValueChange={(value) => field.onChange(value === "yes")}
+                      value={field.value ? "yes" : "no"}
+                    >
+                      <FormControl>
+                        <SelectTrigger className="h-12 w-full text-gray-500">
+                          <SelectValue placeholder="Select option" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        <SelectItem value="yes">Yes</SelectItem>
+                        <SelectItem value="no">No</SelectItem>
                       </SelectContent>
                     </Select>
                     <FormMessage />

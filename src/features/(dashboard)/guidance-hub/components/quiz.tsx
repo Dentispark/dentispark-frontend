@@ -98,20 +98,16 @@ export default function Quiz({ className }: QuizProps) {
       ),
       action: () => {
         if (isGoodScore) {
-          // Move to next section
           if (currentSectionIndex < QUIZ_SECTIONS.length - 1) {
             setCurrentSectionIndex(currentSectionIndex + 1);
             setCurrentQuestionIndex(0);
             setSelectedOption("");
           } else {
-            // Quiz completed
             router.push("/guidance-hub");
           }
         } else {
-          // Retake section - reset to beginning of current section
           setCurrentQuestionIndex(0);
           setSelectedOption("");
-          // Clear answers for current section
           const currentSectionQuestionIds =
             currentSection?.questions.map((q) => q.id) || [];
           const filteredAnswers = userAnswers.filter(
@@ -119,7 +115,6 @@ export default function Quiz({ className }: QuizProps) {
           );
           setUserAnswers(filteredAnswers);
 
-          // Update localStorage
           if (typeof window !== "undefined") {
             try {
               localStorage.setItem(
@@ -143,43 +138,46 @@ export default function Quiz({ className }: QuizProps) {
   };
 
   // Show section start modal
-  const showSectionModal = useCallback((sectionIndex: number, sectionTitle: string) => {
-    const isFirstSection = sectionIndex === 0;
+  const showSectionModal = useCallback(
+    (sectionIndex: number, sectionTitle: string) => {
+      const isFirstSection = sectionIndex === 0;
 
-    showModal({
-      type: "section-start",
-      modalTitle: isFirstSection
-        ? "Know Before You Start"
-        : `Starting: ${sectionTitle}`,
-      bodyContent: (
-        <span>
-          {isFirstSection ? (
-            <>
-              You&apos;ll need to score at least 70% to pass this quiz.
-              <br />
-              Give it your best shot!
-            </>
-          ) : (
-            <>
-              You&apos;re about to start the {sectionTitle} section.
-              <br />
-              Answer all 8 questions to continue.
-            </>
-          )}
-        </span>
-      ),
-      action: () => {
-        setQuizStarted(true);
-        setIsInitialized(true);
-      },
-      actionTitle: "Proceed",
-      secondaryAction: () => {
-        hideModal();
-        router.push("/guidance-hub");
-      },
-      secondaryActionTitle: "Cancel",
-    });
-  }, [showModal, setQuizStarted, setIsInitialized, hideModal, router]);
+      showModal({
+        type: "section-start",
+        modalTitle: isFirstSection
+          ? "Know Before You Start"
+          : `Starting: ${sectionTitle}`,
+        bodyContent: (
+          <span>
+            {isFirstSection ? (
+              <>
+                You&apos;ll need to score at least 70% to pass this quiz.
+                <br />
+                Give it your best shot!
+              </>
+            ) : (
+              <>
+                You&apos;re about to start the {sectionTitle} section.
+                <br />
+                Answer all 8 questions to continue.
+              </>
+            )}
+          </span>
+        ),
+        action: () => {
+          setQuizStarted(true);
+          setIsInitialized(true);
+        },
+        actionTitle: "Proceed",
+        secondaryAction: () => {
+          hideModal();
+          router.push("/guidance-hub");
+        },
+        secondaryActionTitle: "Cancel",
+      });
+    },
+    [showModal, hideModal, router],
+  );
 
   // Show modal on component mount and section changes
   useEffect(() => {
@@ -190,7 +188,12 @@ export default function Quiz({ className }: QuizProps) {
       // Show modal for first section on initial load
       showSectionModal(currentSectionIndex, currentSection?.title || "");
     }
-  }, [isInitialized, currentSectionIndex, currentSection?.title, showSectionModal]);
+  }, [
+    isInitialized,
+    currentSectionIndex,
+    currentSection?.title,
+    showSectionModal,
+  ]);
 
   // Show modal when section changes (except initial load)
   useEffect(() => {
@@ -198,7 +201,12 @@ export default function Quiz({ className }: QuizProps) {
       setQuizStarted(false); // Pause quiz to show modal
       showSectionModal(currentSectionIndex, currentSection?.title || "");
     }
-  }, [currentSectionIndex, isInitialized, currentSection?.title, showSectionModal]);
+  }, [
+    currentSectionIndex,
+    isInitialized,
+    currentSection?.title,
+    showSectionModal,
+  ]);
 
   // Load saved answers and scores on component mount
   useEffect(() => {

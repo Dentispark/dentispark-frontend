@@ -3,8 +3,11 @@
 import Logo from "@/src/components/icons/Logo";
 import { DashboardHeaderProps } from "./types";
 import Image from "next/image";
+import { useAuth } from "@/src/providers/auth-provider";
 
 export default function DashboardHeader({ onMenuClick }: DashboardHeaderProps) {
+  const { user } = useAuth();
+
   return (
     <header className="border-greys-300 bg-whites-200 fixed top-0 right-0 left-0 z-50 border-b">
       <div className="flex h-18 items-center justify-between px-4 sm:px-6 lg:px-8">
@@ -56,31 +59,31 @@ export default function DashboardHeader({ onMenuClick }: DashboardHeaderProps) {
 
           {/* Profile dropdown - hidden on mobile, shown on desktop */}
           <div className="hidden items-center space-x-3 lg:flex">
-            <div className="bg-primary-100 flex size-10 items-center justify-center rounded-full">
-              <Image
-                src="/images/profile.png"
-                alt="Profile"
-                width={1000}
-                height={1000}
-                priority
-                quality={85}
-                className="size-10 rounded-full object-cover"
-                onError={(e) => {
-                  e.currentTarget.style.display = "none";
-                  const nextElement = e.currentTarget
-                    .nextElementSibling as HTMLElement;
-                  if (nextElement) {
-                    nextElement.style.display = "flex";
-                  }
-                }}
-              />
-              <div className="bg-primary-100 text-primary-700 hidden size-10 items-center justify-center rounded-full text-xs font-medium">
-                JD
+            {user?.profilePicture ? (
+              <div className="flex size-10 items-center justify-center rounded-full">
+                <Image
+                  src={user?.profilePicture}
+                  alt="Profile"
+                  width={1000}
+                  height={1000}
+                  priority
+                  quality={85}
+                  className="size-10 rounded-full object-cover"
+                />
               </div>
-            </div>
+            ) : (
+              <div className="bg-primary font-sora flex size-10 items-center justify-center rounded-full font-medium text-white">
+                {user?.fullName
+                  .split(" ")
+                  .map((name) => name[0])
+                  .join("")}
+              </div>
+            )}
             <div className="font-sora">
-              <p className="text-black-700 text-sm font-medium">John Doe</p>
-              <p className="text-black-500 text-[10px]">johndoe@gmail.com</p>
+              <p className="text-black-700 text-sm font-medium">
+                {user?.fullName}
+              </p>
+              <p className="text-black-500 text-[10px]">{user?.emailAddress}</p>
             </div>
           </div>
         </div>

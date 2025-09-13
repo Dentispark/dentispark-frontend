@@ -290,3 +290,29 @@
     overflow: hidden;
   }
 }
+
+/* Hidden scrollbar styles */
+.hidden-scrollbar {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+}
+
+.hidden-scrollbar::-webkit-scrollbar {
+  display: none; /* WebKit */
+}
+
+/* Custom green radio button styles */
+.radio-green {
+  accent-color: #16a34a; /* Green-600 */
+}
+
+.radio-green:checked {
+  background-color: #16a34a;
+  border-color: #16a34a;
+}
+
+.radio-green:focus {
+  outline: none;
+  outline-offset: 4px;
+  border-color: #16a34a;
+}
