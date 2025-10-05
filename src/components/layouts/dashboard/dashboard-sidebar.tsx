@@ -7,6 +7,7 @@ import { useLogout } from "@/src/hooks/use-logout";
 import { cn } from "@/src/lib/utils";
 
 import { useAuth } from "@/src/providers/auth-provider";
+import { useRouter } from "next/navigation";
 
 export default function DashboardSidebar({
   isOpen,
@@ -15,6 +16,8 @@ export default function DashboardSidebar({
   currentPath,
 }: DashboardSidebarProps) {
   const { showLogoutModal } = useLogout();
+
+  const router = useRouter();
 
   const { user, isPremium } = useAuth();
 
@@ -169,7 +172,10 @@ export default function DashboardSidebar({
               </div>
 
               {/* CTA Button */}
-              <button className="bg-primary hover:bg-primary-400 w-full rounded-md px-4 py-3 text-sm font-medium text-white transition-colors duration-200">
+              <button
+                onClick={() => router.push("/payment-setup")}
+                className="bg-primary hover:bg-primary-400 w-full rounded-md px-4 py-3 text-sm font-medium text-white transition-colors duration-200"
+              >
                 Try Premium for 14 days
               </button>
             </div>
