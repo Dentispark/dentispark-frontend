@@ -11,7 +11,7 @@ export interface ModalConfig {
   secondaryActionTitle?: string;
   className?: string;
   type: string;
-  size?: "sm" | "md" | "lg" | "xl";
+  size?: "sm" | "md" | "lg" | "xl" | "2xl";
   isCustomContent?: boolean; // Flag to indicate if content should not be wrapped in DialogDescription
   isDestructive?: boolean; // Flag to indicate if primary action is destructive (red button)
 }

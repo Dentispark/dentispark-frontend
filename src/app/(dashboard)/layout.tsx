@@ -1,20 +1,27 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { usePathname } from "next/navigation";
 import {
   DashboardSidebar,
   DashboardHeader,
   MobileMenuOverlay,
-  menuItems,
+  getFilteredMenuItems,
   type DashboardLayoutProps,
 } from "@/src/components/layouts/dashboard";
 import { ProtectedRoute } from "@/src/components/auth/protected-route";
+import { useAuth } from "@/src/providers/auth-provider";
 
 export default function DashboardLayout({ children }: DashboardLayoutProps) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
   const pathname = usePathname();
+  const { user } = useAuth();
+
+  // Get filtered menu items based on user type
+  const filteredMenuItems = useMemo(() => {
+    return getFilteredMenuItems(user?.memberType);
+  }, [user?.memberType]);
 
   useEffect(() => {
     setMounted(true);
@@ -44,7 +51,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
           <DashboardSidebar
             isOpen={sidebarOpen}
             onClose={handleSidebarClose}
-            menuItems={menuItems}
+            menuItems={filteredMenuItems}
             currentPath={pathname}
           />
 

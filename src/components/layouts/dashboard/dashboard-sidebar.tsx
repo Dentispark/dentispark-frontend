@@ -7,6 +7,7 @@ import { useLogout } from "@/src/hooks/use-logout";
 import { cn } from "@/src/lib/utils";
 
 import { useAuth } from "@/src/providers/auth-provider";
+import { useRouter } from "next/navigation";
 
 export default function DashboardSidebar({
   isOpen,
@@ -16,7 +17,9 @@ export default function DashboardSidebar({
 }: DashboardSidebarProps) {
   const { showLogoutModal } = useLogout();
 
-  const { user, isPremium } = useAuth();
+  const router = useRouter();
+
+  const { user, isPremium, isStudent } = useAuth();
 
   return (
     <aside
@@ -141,8 +144,8 @@ export default function DashboardSidebar({
           </button>
         </nav>
 
-        {/* Premium Upgrade UI - Only show if user is not premium */}
-        {!isPremium && (
+        {/* Premium Upgrade UI - Only show if user is a student and not premium */}
+        {isStudent && !isPremium && (
           <div className="p-4">
             <div className="bg-primary-100 rounded-2xl p-4">
               {/* Premium Badge */}
@@ -169,7 +172,10 @@ export default function DashboardSidebar({
               </div>
 
               {/* CTA Button */}
-              <button className="bg-primary hover:bg-primary-400 w-full rounded-md px-4 py-3 text-sm font-medium text-white transition-colors duration-200">
+              <button
+                onClick={() => router.push("/payment-setup")}
+                className="bg-primary hover:bg-primary-400 w-full rounded-md px-4 py-3 text-sm font-medium text-white transition-colors duration-200"
+              >
                 Try Premium for 14 days
               </button>
             </div>

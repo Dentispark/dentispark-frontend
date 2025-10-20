@@ -52,6 +52,8 @@ export function GenericModal() {
         return "sm:max-w-lg";
       case "xl":
         return "sm:max-w-2xl";
+      case "2xl":
+        return "sm:max-w-4xl";
       default:
         return "sm:max-w-md";
     }
