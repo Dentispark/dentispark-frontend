@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "framer-motion";
 import { PaymentSetupStep1 } from "@/src/features/(dashboard)/payment-setup/components/payment-setup-step-1";
 import { PaymentSetupStep2 } from "@/src/features/(dashboard)/payment-setup/components/payment-setup-step-2";
 import { PaymentSetupStep3 } from "@/src/features/(dashboard)/payment-setup/components/payment-setup-step-3";
@@ -43,7 +42,7 @@ export function PaymentSetupForm() {
     handlePaymentInitiation();
   });
 
-  const handleNext = (stepData: any) => {
+  const handleNext = (stepData: Partial<PaymentSetupFormData>) => {
     const updatedData = { ...formData, ...stepData };
     setFormData(updatedData);
 

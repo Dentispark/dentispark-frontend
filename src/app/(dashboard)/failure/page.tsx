@@ -1,10 +1,9 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { XCircle } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/src/components/ui/button";
-import { Card, CardContent } from "@/src/components/ui/card";
+import { CardContent } from "@/src/components/ui/card";
 
 export default function PaymentFailurePage() {
   const router = useRouter();

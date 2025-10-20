@@ -22,6 +22,8 @@ interface AuthContextType {
   updateUser: (userData: LoginResponseData) => void;
   hasRole: (role: string) => boolean;
   isPremium: boolean;
+  isStudent: boolean;
+  isMentor: boolean;
   roles: string[];
 }
 
@@ -118,6 +120,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
       setIsAuthenticated(false);
       return false;
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tokenExpirationTimer, router]);
 
   const setupTokenExpirationTimer = useCallback(
@@ -208,6 +211,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     };
 
     initAuth();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -267,6 +271,16 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
   const isPremium = useMemo(() => hasRole("PREMIUM"), [hasRole]);
 
+  const isStudent = useMemo(
+    () => user?.memberType === "STUDENT",
+    [user?.memberType],
+  );
+
+  const isMentor = useMemo(
+    () => user?.memberType === "ACADEMIC_MENTOR",
+    [user?.memberType],
+  );
+
   const value: AuthContextType = useMemo(
     () => ({
       user,
@@ -278,6 +292,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
       hasRole,
       updateUser,
       isPremium,
+      isStudent,
+      isMentor,
       roles,
     }),
     [
@@ -290,6 +306,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
       hasRole,
       updateUser,
       isPremium,
+      isStudent,
+      isMentor,
       roles,
     ],
   );

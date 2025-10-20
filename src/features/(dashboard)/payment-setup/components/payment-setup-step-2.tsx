@@ -21,7 +21,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/src/components/ui/select";
-import { StepProps, PaymentSetupStep2Data } from "../types";
+import { StepProps } from "../types";
 
 const step2Schema = z.object({
   dentalExperience: z.string().optional(),

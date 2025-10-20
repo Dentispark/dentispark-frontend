@@ -19,7 +19,7 @@ export default function DashboardSidebar({
 
   const router = useRouter();
 
-  const { user, isPremium } = useAuth();
+  const { user, isPremium, isStudent } = useAuth();
 
   return (
     <aside
@@ -144,8 +144,8 @@ export default function DashboardSidebar({
           </button>
         </nav>
 
-        {/* Premium Upgrade UI - Only show if user is not premium */}
-        {!isPremium && (
+        {/* Premium Upgrade UI - Only show if user is a student and not premium */}
+        {isStudent && !isPremium && (
           <div className="p-4">
             <div className="bg-primary-100 rounded-2xl p-4">
               {/* Premium Badge */}

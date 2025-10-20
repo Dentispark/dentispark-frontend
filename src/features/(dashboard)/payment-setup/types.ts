@@ -96,7 +96,7 @@ export type PaymentSetupResponse = BaseApiResponse<{
 
 export interface StepProps {
   data: Partial<PaymentSetupFormData>;
-  onNext: (stepData: any) => void;
+  onNext: (stepData: Partial<PaymentSetupFormData>) => void;
   onPrevious: () => void;
   isLoading?: boolean;
 }

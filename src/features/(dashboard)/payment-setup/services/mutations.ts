@@ -17,7 +17,7 @@ export const useSubmitBasicDetails = (onSuccess?: () => void) => {
   return useMutation({
     mutationFn: (data: BasicDetailsFormData) =>
       paymentSetupApi.submitBasicDetails(data),
-    onSuccess: (response) => {
+    onSuccess: () => {
       toast.success("Basic details submitted successfully!");
 
       queryClient.invalidateQueries({ queryKey: ["payment-setup"] });
@@ -26,10 +26,14 @@ export const useSubmitBasicDetails = (onSuccess?: () => void) => {
         onSuccess();
       }
     },
-    onError: (error: any) => {
+    onError: (error: unknown) => {
+      const err = error as {
+        response?: { data?: { message?: string } };
+        message?: string;
+      };
       const errorMessage =
-        error?.response?.data?.message ||
-        error?.message ||
+        err?.response?.data?.message ||
+        err?.message ||
         "Failed to submit basic details. Please try again.";
       toast.error(errorMessage);
     },
@@ -42,7 +46,7 @@ export const useSubmitDentalExperience = (onSuccess?: () => void) => {
   return useMutation({
     mutationFn: (data: DentalExperienceFormData) =>
       paymentSetupApi.submitDentalExperience(data),
-    onSuccess: (response) => {
+    onSuccess: () => {
       toast.success("Dental experience submitted successfully!");
 
       queryClient.invalidateQueries({ queryKey: ["payment-setup"] });
@@ -51,10 +55,14 @@ export const useSubmitDentalExperience = (onSuccess?: () => void) => {
         onSuccess();
       }
     },
-    onError: (error: any) => {
+    onError: (error: unknown) => {
+      const err = error as {
+        response?: { data?: { message?: string } };
+        message?: string;
+      };
       const errorMessage =
-        error?.response?.data?.message ||
-        error?.message ||
+        err?.response?.data?.message ||
+        err?.message ||
         "Failed to submit dental experience. Please try again.";
       toast.error(errorMessage);
     },
@@ -67,7 +75,7 @@ export const useSubmitMentorAvailability = (onSuccess?: () => void) => {
   return useMutation({
     mutationFn: (data: MentorAvailabilityFormData) =>
       paymentSetupApi.submitMentorAvailability(data),
-    onSuccess: (response) => {
+    onSuccess: () => {
       toast.success("Mentor availability submitted successfully!");
 
       queryClient.invalidateQueries({ queryKey: ["payment-setup"] });
@@ -76,10 +84,14 @@ export const useSubmitMentorAvailability = (onSuccess?: () => void) => {
         onSuccess();
       }
     },
-    onError: (error: any) => {
+    onError: (error: unknown) => {
+      const err = error as {
+        response?: { data?: { message?: string } };
+        message?: string;
+      };
       const errorMessage =
-        error?.response?.data?.message ||
-        error?.message ||
+        err?.response?.data?.message ||
+        err?.message ||
         "Failed to submit mentor availability. Please try again.";
       toast.error(errorMessage);
     },
@@ -112,10 +124,14 @@ export const useInitiatePayment = (
         }
       }
     },
-    onError: (error: any) => {
+    onError: (error: unknown) => {
+      const err = error as {
+        response?: { data?: { message?: string } };
+        message?: string;
+      };
       const errorMessage =
-        error?.response?.data?.message ||
-        error?.message ||
+        err?.response?.data?.message ||
+        err?.message ||
         "Failed to initiate payment. Please try again.";
       toast.error(errorMessage);
     },
@@ -135,10 +151,14 @@ export const useActivatePremium = () => {
         );
       }
     },
-    onError: (error: any) => {
+    onError: (error: unknown) => {
+      const err = error as {
+        response?: { data?: { message?: string } };
+        message?: string;
+      };
       const errorMessage =
-        error?.response?.data?.message ||
-        error?.message ||
+        err?.response?.data?.message ||
+        err?.message ||
         "Failed to activate premium membership. Please try again.";
       toast.error(errorMessage);
     },

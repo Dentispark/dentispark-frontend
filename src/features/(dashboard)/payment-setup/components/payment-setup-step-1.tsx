@@ -22,7 +22,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/src/components/ui/select";
-import { StepProps, PaymentSetupStep1Data } from "../types";
+import { StepProps } from "../types";
 
 const step1Schema = z.object({
   academicYear: z.coerce.number().min(9).max(13),

@@ -102,7 +102,13 @@ export default function LoginPage() {
             Log in to your Dentispark account
           </h1>
           <p className="font-sora mt-2 text-sm text-gray-600">
-            Both students & mentors can log in here.
+            Student login portal. Are you a mentor?{" "}
+            <Link
+              href="/mentor/login"
+              className="text-primary font-sora cursor-pointer text-sm underline"
+            >
+              Click here
+            </Link>
           </p>
         </motion.div>
 

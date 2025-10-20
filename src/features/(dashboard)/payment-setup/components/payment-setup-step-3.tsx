@@ -31,13 +31,13 @@ const step3Schema = z.object({
 
 type Step3FormData = z.infer<typeof step3Schema>;
 
-const mentorshipAvailability = [
-  "Weekdays",
-  "Weekends",
-  "Evenings",
-  "Flexible",
-  "Not interested",
-];
+// const mentorshipAvailability = [
+//   "Weekdays",
+//   "Weekends",
+//   "Evenings",
+//   "Flexible",
+//   "Not interested",
+// ];
 
 const hearAboutOptions = [
   "Social Media",
