@@ -61,8 +61,8 @@ export const useOAuth2Signup = () => {
   });
 };
 
+// Student Login Hook
 export const useLogin = () => {
-  const router = useRouter();
   const { login } = useAuth();
 
   return useMutation<ApiResponse<LoginResponseData>, Error, LoginRequest>({
@@ -70,19 +70,13 @@ export const useLogin = () => {
     mutationFn: authApi.LOGIN,
     onSuccess: (data) => {
       if (data.responseCode === "00") {
-        const { auth, profileStatus } = data.responseData;
+        const { auth } = data.responseData;
 
         authCookies.setAccessToken(auth.accessToken, auth.tokenExpiredAt);
-
         authCookies.setUserData(data.responseData);
         login(data.responseData);
 
         toast.success("Login successful! Welcome back to Dentispark!");
-        if (profileStatus === "PENDING") {
-          router.push("/profile-setup");
-        } else {
-          router.push("/overview");
-        }
       } else {
         toast.error(
           data.responseMessage ||
@@ -91,7 +85,7 @@ export const useLogin = () => {
       }
     },
     onError: (error) => {
-      console.error("Login error:", error);
+      console.error("Student login error:", error);
       toast.error("An error occurred during login. Please try again.");
     },
   });

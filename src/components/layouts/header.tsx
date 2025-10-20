@@ -192,7 +192,7 @@ export default function Header() {
             transition={{ duration: 0.2 }}
           >
             <Link href="/login">
-              <Button className="font-sora" variant="outline">
+              <Button className="font-sora h-10" variant="outline">
                 Log In
               </Button>
             </Link>
@@ -203,7 +203,7 @@ export default function Header() {
             transition={{ duration: 0.2 }}
           >
             <Link href="/sign-up">
-              <Button className="font-sora">Sign Up</Button>
+              <Button className="font-sora h-10">Sign Up</Button>
             </Link>
           </motion.div>
         </motion.div>
@@ -216,7 +216,7 @@ export default function Header() {
           whileTap={{ scale: 0.95 }}
         >
           <Link href="/sign-up">
-            <Button className="font-sora h-auto px-5 py-2 text-sm">
+            <Button className="font-sora h-10 px-5 py-2 text-sm">
               Sign Up
             </Button>
           </Link>

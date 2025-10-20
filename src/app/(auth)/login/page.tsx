@@ -102,13 +102,7 @@ export default function LoginPage() {
             Log in to your Dentispark account
           </h1>
           <p className="font-sora mt-2 text-sm text-gray-600">
-            Student login portal. Are you a mentor?{" "}
-            <Link
-              href="/mentor/login"
-              className="text-primary font-sora cursor-pointer text-sm underline"
-            >
-              Click here
-            </Link>
+            Student & Mentor login portal.
           </p>
         </motion.div>
 
@@ -266,6 +260,18 @@ export default function LoginPage() {
               className="text-primary font-sora cursor-pointer text-xs underline"
             >
               Sign up
+            </Link>
+          </p>
+        </motion.div>
+        {/* Sign Up Link */}
+        <motion.div className="text-center" variants={itemVariants}>
+          <p className="font-sora text-xs text-gray-600">
+            Onboarding as a mentor?{" "}
+            <Link
+              href="/mentor/onboarding"
+              className="text-primary font-sora cursor-pointer text-xs underline"
+            >
+              Click here
             </Link>
           </p>
         </motion.div>
