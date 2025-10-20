@@ -6,6 +6,12 @@ export interface MenuItem {
     active: React.ReactNode;
     inactive: React.ReactNode;
   };
+  allowedMemberTypes?: (
+    | "STUDENT"
+    | "ACADEMIC_MENTOR"
+    | "PLATFORM_ADMIN"
+    | "PLATFORM_SYSTEM"
+  )[];
 }
 
 export interface DashboardLayoutProps {

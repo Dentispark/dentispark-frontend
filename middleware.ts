@@ -12,10 +12,16 @@ const publicRoutes = [
 
 const authRoutes = [
   "/login",
+  "/mentor/login",
   "/sign-up",
+  "/mentor/sign-up",
+  "/mentor/onboarding",
   "/forgot-password",
+  "/mentor/forgot-password",
   "/verify-email",
+  "/mentor/verify-email",
   "/new-password",
+  "/mentor/new-password",
 ];
 
 const protectedRoutes = [

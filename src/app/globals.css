@@ -74,7 +74,7 @@
   --color-greys-600: var(--greys-600);
   --color-greys-1000: var(--greys-1000);
 
-  --color-success-50: var(--success-50)
+  --color-success-50: var(--success-50);
   --color-success-100: var(--success-100);
   --color-success-200: var(--success-200);
   --color-success-300: var(--success-300);
@@ -85,7 +85,7 @@
   --color-success-800: var(--success-800);
   --color-success-900: var(--success-900);
 
-  --color-warning-50: var(--warning-50)
+  --color-warning-50: var(--warning-50);
   --color-warning-100: var(--warning-100);
   --color-warning-200: var(--warning-200);
   --color-warning-300: var(--warning-300);
@@ -315,4 +315,96 @@
   outline: none;
   outline-offset: 4px;
   border-color: #16a34a;
+}
+
+/* FullCalendar Custom Styles */
+.fc-event {
+  border-radius: 6px !important;
+  border-width: 1px !important;
+  margin: 1px !important;
+}
+
+.fc-event:hover {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
+}
+
+.fc-event-main {
+  padding: 0 !important;
+}
+
+.fc-event-title {
+  display: none !important;
+}
+
+.fc-event-time {
+  display: none !important;
+}
+
+.fc-timegrid-event {
+  border-radius: 6px !important;
+}
+
+.fc-timegrid-event-harness {
+  margin-right: 2px !important;
+}
+
+.fc-timegrid-slot-minor {
+  border-top: none !important;
+}
+
+.fc-timegrid-slot {
+  border-top: 1px solid #f3f4f6 !important;
+}
+
+.fc-col-header-cell {
+  background-color: #f9fafb !important;
+  border-color: #e5e7eb !important;
+}
+
+.fc-scrollgrid {
+  border-color: #e5e7eb !important;
+}
+
+.fc-scrollgrid-sync-table {
+  border-color: #e5e7eb !important;
+}
+
+/* Current time indicator (red line) */
+.fc-timegrid-now-indicator-line {
+  border-top: 2px solid #ef4444 !important;
+  z-index: 10 !important;
+  opacity: 1 !important;
+}
+
+.fc-timegrid-now-indicator-arrow {
+  border-top-color: #ef4444 !important;
+  border-bottom-color: #ef4444 !important;
+  z-index: 10 !important;
+}
+
+/* Alternative selectors for now indicator */
+.fc .fc-timegrid-now-indicator-line {
+  border-top: 2px solid #ef4444 !important;
+}
+
+.fc .fc-timegrid-now-indicator-arrow {
+  border-color: transparent !important;
+  border-top-color: #ef4444 !important;
+}
+
+/* More specific selectors for now indicator */
+.fc-timegrid .fc-timegrid-now-indicator-line {
+  border-top: 2px solid #ef4444 !important;
+  height: 0 !important;
+  width: 100% !important;
+  left: 0 !important;
+  right: 0 !important;
+  z-index: 999 !important;
+}
+
+.fc-timegrid .fc-timegrid-now-indicator-arrow {
+  border-style: solid !important;
+  border-width: 5px 0 5px 6px !important;
+  border-color: transparent transparent transparent #ef4444 !important;
+  z-index: 999 !important;
 }

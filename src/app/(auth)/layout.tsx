@@ -14,10 +14,16 @@ interface AuthLayoutProps {
 export default function AuthLayout({ children }: AuthLayoutProps) {
   const pathname = usePathname();
   const isLoginPage = pathname === "/login";
+  const isMentorLoginPage = pathname === "/mentor/login";
   const isSignUpPage = pathname === "/sign-up";
+  const isMentorSignUpPage = pathname === "/mentor/sign-up";
+  // const isMentorOnboardingPage = pathname === "/mentor/onboarding";
   const isForgotPasswordPage = pathname === "/forgot-password";
+  const isMentorForgotPasswordPage = pathname === "/mentor/forgot-password";
   const isVerifyEmailPage = pathname === "/verify-email";
+  const isMentorVerifyEmailPage = pathname === "/mentor/verify-email";
   const isNewPasswordPage = pathname === "/new-password";
+  const isMentorNewPasswordPage = pathname === "/mentor/new-password";
   const isProfileSetupPage = pathname === "/profile-setup";
 
   return (
@@ -39,51 +45,113 @@ export default function AuthLayout({ children }: AuthLayoutProps) {
             {/* Desktop Navigation - hidden on mobile */}
             <div className="hidden items-center space-x-4 md:flex">
               {!isLoginPage &&
+                !isMentorLoginPage &&
                 !isForgotPasswordPage &&
+                !isMentorForgotPasswordPage &&
                 !isVerifyEmailPage &&
+                !isMentorVerifyEmailPage &&
                 !isNewPasswordPage &&
+                !isMentorNewPasswordPage &&
                 !isProfileSetupPage && (
                   <div>
                     <Link href="/login">
                       <Button className="font-sora" variant="outline">
-                        Log In
+                        Login
                       </Button>
                     </Link>
                   </div>
                 )}
+
               {!isSignUpPage &&
-                !isForgotPasswordPage &&
-                !isVerifyEmailPage &&
-                !isNewPasswordPage &&
-                !isProfileSetupPage && (
-                  <div>
-                    <Link href="/sign-up">
-                      <Button className="font-sora">Sign Up</Button>
-                    </Link>
-                  </div>
-                )}
+              !isMentorSignUpPage &&
+              !isForgotPasswordPage &&
+              !isMentorForgotPasswordPage &&
+              !isVerifyEmailPage &&
+              !isMentorVerifyEmailPage &&
+              !isNewPasswordPage &&
+              !isMentorNewPasswordPage &&
+              !isProfileSetupPage &&
+              !isMentorLoginPage ? (
+                <div>
+                  <Link href="/sign-up">
+                    <Button className="font-sora">Sign Up</Button>
+                  </Link>
+                </div>
+              ) : isMentorLoginPage ||
+                isMentorForgotPasswordPage ||
+                isMentorVerifyEmailPage ||
+                isMentorNewPasswordPage ? (
+                <div>
+                  <Link href="/mentor/onboarding">
+                    <Button className="font-sora">Sign Up</Button>
+                  </Link>
+                </div>
+              ) : null}
             </div>
 
             {/* Mobile - conditionally show button */}
             <div className="block md:hidden">
               {!isSignUpPage &&
+                !isMentorSignUpPage &&
                 !isForgotPasswordPage &&
+                !isMentorForgotPasswordPage &&
                 !isVerifyEmailPage &&
+                !isMentorVerifyEmailPage &&
                 !isNewPasswordPage &&
-                !isProfileSetupPage && (
+                !isMentorNewPasswordPage &&
+                !isProfileSetupPage &&
+                !(
+                  isMentorLoginPage ||
+                  isMentorForgotPasswordPage ||
+                  isMentorVerifyEmailPage ||
+                  isMentorNewPasswordPage
+                ) && (
                   <Link href="/sign-up">
                     <Button className="font-sora h-auto px-5 py-2 text-sm">
                       Sign Up
                     </Button>
                   </Link>
                 )}
-              {!isLoginPage && isSignUpPage && (
+              {(isMentorLoginPage ||
+                isMentorForgotPasswordPage ||
+                isMentorVerifyEmailPage ||
+                isMentorNewPasswordPage) && (
+                <Link href="/mentor/sign-up">
+                  <Button className="font-sora h-auto px-5 py-2 text-sm">
+                    Sign Up
+                  </Button>
+                </Link>
+              )}
+              {!isLoginPage && !isMentorLoginPage && isSignUpPage && (
                 <Link href="/login">
                   <Button
                     className="font-sora h-auto px-5 py-2 text-sm"
                     variant="outline"
                   >
-                    Log In
+                    Student Login
+                  </Button>
+                </Link>
+              )}
+              {(isMentorLoginPage ||
+                isMentorForgotPasswordPage ||
+                isMentorVerifyEmailPage ||
+                isMentorNewPasswordPage) && (
+                <Link href="/login">
+                  <Button
+                    className="font-sora h-auto px-5 py-2 text-sm"
+                    variant="outline"
+                  >
+                    Student Login
+                  </Button>
+                </Link>
+              )}
+              {isLoginPage && (
+                <Link href="/mentor/login">
+                  <Button
+                    className="font-sora h-auto px-5 py-2 text-sm"
+                    variant="outline"
+                  >
+                    Mentor Login
                   </Button>
                 </Link>
               )}

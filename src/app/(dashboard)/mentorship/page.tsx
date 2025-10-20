@@ -1,18 +1,24 @@
 "use client";
 
+import PersonalizedMentors from "@/src/features/(dashboard)/overview/components/personalized-mentors";
 import { motion } from "framer-motion";
 
 export default function MentorshipPage() {
   return (
     <div className="min-h-screen bg-white">
-      <div className="container mx-auto px-4 py-16">
+      <div className="mx-auto py-4 md:px-4">
         <motion.h1
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="text-center text-4xl font-bold text-gray-900"
         >
-          Mentorship
+          <div className="mb-6">
+            <h1 className="text-black-800 text-2xl font-semibold md:text-2xl">
+              Mentorship
+            </h1>
+          </div>
+
+          <PersonalizedMentors />
         </motion.h1>
       </div>
     </div>
