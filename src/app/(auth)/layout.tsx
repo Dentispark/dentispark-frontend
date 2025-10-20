@@ -55,7 +55,7 @@ export default function AuthLayout({ children }: AuthLayoutProps) {
                 !isProfileSetupPage && (
                   <div>
                     <Link href="/login">
-                      <Button className="font-sora" variant="outline">
+                      <Button className="font-sora h-10" variant="outline">
                         Login
                       </Button>
                     </Link>
@@ -74,7 +74,7 @@ export default function AuthLayout({ children }: AuthLayoutProps) {
               !isMentorLoginPage ? (
                 <div>
                   <Link href="/sign-up">
-                    <Button className="font-sora">Sign Up</Button>
+                    <Button className="font-sora h-10">Sign Up</Button>
                   </Link>
                 </div>
               ) : isMentorLoginPage ||
@@ -83,7 +83,7 @@ export default function AuthLayout({ children }: AuthLayoutProps) {
                 isMentorNewPasswordPage ? (
                 <div>
                   <Link href="/mentor/onboarding">
-                    <Button className="font-sora">Sign Up</Button>
+                    <Button className="font-sora h-10">Sign Up</Button>
                   </Link>
                 </div>
               ) : null}
@@ -107,7 +107,7 @@ export default function AuthLayout({ children }: AuthLayoutProps) {
                   isMentorNewPasswordPage
                 ) && (
                   <Link href="/sign-up">
-                    <Button className="font-sora h-auto px-5 py-2 text-sm">
+                    <Button className="font-sora h-10 px-5 py-2 text-sm">
                       Sign Up
                     </Button>
                   </Link>
@@ -117,7 +117,7 @@ export default function AuthLayout({ children }: AuthLayoutProps) {
                 isMentorVerifyEmailPage ||
                 isMentorNewPasswordPage) && (
                 <Link href="/mentor/sign-up">
-                  <Button className="font-sora h-auto px-5 py-2 text-sm">
+                  <Button className="font-sora h-10 px-5 py-2 text-sm">
                     Sign Up
                   </Button>
                 </Link>
@@ -125,7 +125,7 @@ export default function AuthLayout({ children }: AuthLayoutProps) {
               {!isLoginPage && !isMentorLoginPage && isSignUpPage && (
                 <Link href="/login">
                   <Button
-                    className="font-sora h-auto px-5 py-2 text-sm"
+                    className="font-sora h-10 px-5 py-2 text-sm"
                     variant="outline"
                   >
                     Student Login
@@ -133,25 +133,16 @@ export default function AuthLayout({ children }: AuthLayoutProps) {
                 </Link>
               )}
               {(isMentorLoginPage ||
+                isLoginPage ||
                 isMentorForgotPasswordPage ||
                 isMentorVerifyEmailPage ||
                 isMentorNewPasswordPage) && (
                 <Link href="/login">
                   <Button
-                    className="font-sora h-auto px-5 py-2 text-sm"
+                    className="font-sora h-10 px-5 py-2 text-sm"
                     variant="outline"
                   >
-                    Student Login
-                  </Button>
-                </Link>
-              )}
-              {isLoginPage && (
-                <Link href="/mentor/login">
-                  <Button
-                    className="font-sora h-auto px-5 py-2 text-sm"
-                    variant="outline"
-                  >
-                    Mentor Login
+                    Login
                   </Button>
                 </Link>
               )}

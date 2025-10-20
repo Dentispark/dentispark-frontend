@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { cn } from "@/src/lib/utils";
 import { StudentMatchingCard } from "@/src/components/molecules/student-matching-card";
+import { useRouter } from "next/navigation";
 
 interface Student {
   id: string;
@@ -67,6 +68,8 @@ type FilterTab = "all" | "personal-statement" | "ucat";
 export function LatestBookingsSection({
   className,
 }: LatestBookingsSectionProps) {
+  const router = useRouter();
+
   const [activeFilter, setActiveFilter] = useState<FilterTab>("all");
 
   const filteredStudents = SAMPLE_STUDENTS.filter((student) => {
@@ -81,6 +84,7 @@ export function LatestBookingsSection({
 
   const handleViewProfile = (studentId: string) => {
     console.log("View profile for student:", studentId);
+    router.push(`/mentor/student-matching/${studentId}`);
     // TODO: Implement view profile logic
   };
 

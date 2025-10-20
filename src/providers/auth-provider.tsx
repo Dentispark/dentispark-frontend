@@ -135,18 +135,22 @@ export function AuthProvider({ children }: AuthProviderProps) {
         expirationDate.getTime() - currentTime.getTime();
 
       if (timeUntilExpiration > 0) {
+        // Capture user type before the timeout to determine redirect path
+        const isMentor = user?.memberType === "ACADEMIC_MENTOR";
+
         const timer = setTimeout(() => {
           console.log("Token expired, logging out automatically");
           authCookies.clearAll();
           setUser(null);
           setIsAuthenticated(false);
-          router.push("/login");
+          // Redirect to appropriate login page based on user type
+          router.push(isMentor ? "/mentor/login" : "/login");
         }, timeUntilExpiration);
 
         setTokenExpirationTimer(timer);
       }
     },
-    [tokenExpirationTimer, router],
+    [tokenExpirationTimer, router, user?.memberType],
   );
 
   const login = useCallback(
@@ -170,6 +174,9 @@ export function AuthProvider({ children }: AuthProviderProps) {
   }, []);
 
   const logout = useCallback(() => {
+    // Check if user is a mentor before clearing state
+    const isMentor = user?.memberType === "ACADEMIC_MENTOR";
+
     if (tokenExpirationTimer) {
       clearTimeout(tokenExpirationTimer);
       setTokenExpirationTimer(null);
@@ -183,8 +190,9 @@ export function AuthProvider({ children }: AuthProviderProps) {
       window.dispatchEvent(new CustomEvent("auth-state-changed"));
     }
 
-    router.push("/login");
-  }, [tokenExpirationTimer, router]);
+    // Redirect to appropriate login page based on user type
+    router.push(isMentor ? "/mentor/login" : "/login");
+  }, [tokenExpirationTimer, router, user?.memberType]);
 
   const refreshAuth = useCallback(async () => {
     setIsLoading(true);
@@ -199,13 +207,31 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
       if (!isLoading) {
         if (isAuth && isAuthRoute) {
-          const redirectTo =
-            user?.profileStatus === "PENDING" ? "/profile-setup" : "/overview";
+          // Determine redirect based on both user type and current path
+          const isMentor = user?.memberType === "ACADEMIC_MENTOR";
+          const isOnMentorRoute = pathname.startsWith("/mentor");
+
+          let redirectTo: string;
+
+          if (user?.profileStatus === "PENDING") {
+            redirectTo = "/profile-setup";
+          } else if (isOnMentorRoute || isMentor) {
+            // If on mentor route or user is a mentor, go to mentor dashboard
+            redirectTo = "/mentor/overview";
+          } else {
+            // Default to student dashboard
+            redirectTo = "/overview";
+          }
+
           router.replace(redirectTo);
         }
 
         if (!isAuth && isProtectedRoute) {
-          router.replace("/login");
+          // Redirect to appropriate login based on current path
+          const loginPath = pathname.startsWith("/mentor")
+            ? "/mentor/login"
+            : "/login";
+          router.replace(loginPath);
         }
       }
     };
@@ -218,14 +244,32 @@ export function AuthProvider({ children }: AuthProviderProps) {
     if (isLoading) return;
 
     if (isAuthenticated && isAuthRoute) {
-      const redirectTo =
-        user?.profileStatus === "PENDING" ? "/profile-setup" : "/overview";
+      // Determine redirect based on both user type and current path
+      const isMentor = user?.memberType === "ACADEMIC_MENTOR";
+      const isOnMentorRoute = pathname.startsWith("/mentor");
+
+      let redirectTo: string;
+
+      if (user?.profileStatus === "PENDING") {
+        redirectTo = "/profile-setup";
+      } else if (isOnMentorRoute || isMentor) {
+        // If on mentor route or user is a mentor, go to mentor dashboard
+        redirectTo = "/mentor/overview";
+      } else {
+        // Default to student dashboard
+        redirectTo = "/overview";
+      }
+
       router.replace(redirectTo);
       return;
     }
 
     if (!isAuthenticated && isProtectedRoute) {
-      router.replace("/login");
+      // Redirect to appropriate login based on current path
+      const loginPath = pathname.startsWith("/mentor")
+        ? "/mentor/login"
+        : "/login";
+      router.replace(loginPath);
       return;
     }
   }, [
@@ -236,6 +280,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     router,
     isLoading,
     user?.profileStatus,
+    user?.memberType,
   ]);
 
   useEffect(() => {
