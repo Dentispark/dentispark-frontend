@@ -147,13 +147,11 @@ function createQueryClient() {
   return new QueryClient({
     defaultOptions: {
       queries: {
-        // Stale time: 5 minutes
         staleTime: 5 * 60 * 1000,
         // Cache time: 10 minutes
         gcTime: 10 * 60 * 1000,
         // Retry configuration
         retry: (failureCount, error) => {
-          // Don't retry on 4xx errors (except 408, 429)
           if (error instanceof Error) {
             if (
               error.message.includes("Authentication required") ||
@@ -164,19 +162,14 @@ function createQueryClient() {
             }
           }
 
-          // Retry up to 3 times with exponential backoff
           return failureCount < 3;
         },
         retryDelay: (attemptIndex) => Math.min(1000 * 2 ** attemptIndex, 30000),
-        // Refetch on window focus for important data
         refetchOnWindowFocus: false,
-        // Refetch on mount if data is stale
         refetchOnMount: true,
-        // Refetch on reconnect
         refetchOnReconnect: true,
       },
       mutations: {
-        // Retry mutations once
         retry: 1,
         retryDelay: 1000,
       },
