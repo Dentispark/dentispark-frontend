@@ -90,8 +90,6 @@ export const authCookies = {
       expires: expiresDate,
       secure: true,
       sameSite: "lax",
-      // Note: httpOnly should be set server-side for maximum security
-      // Client-side cookies can't be httpOnly, but server can set them
     });
   },
 
